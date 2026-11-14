@@ -98,4 +98,25 @@ async function changeStatus(id,enable,btn){
 }
 const params=new URLSearchParams(location.search),token=params.get('t');
 if(token){$('admin').classList.add('hidden');$('visitor').classList.remove('hidden');$('alertForm').onsubmit=async e=>{e.preventDefault();const issue=document.querySelector('input[name="issue"]:checked')?.value;if(!issue)return;const b=$('alertForm').querySelector('button[type="submit"]');b.disabled=true;b.textContent='جارٍ إرسال التنبيه...';try{const d=await api({action:'public_alert',token,issue,details:$('details').value.trim()});showMsg($('visitorMsg'),d.message||'تم إرسال التنبيه.',true);$('alertForm').reset();b.textContent='تم الإرسال';}catch(err){showMsg($('visitorMsg'),err.message);b.disabled=false;b.textContent='إرسال التنبيه';}};}
-</script></body></html>
+</script></body></html>oDataURL('image/png');a.click();};
+$('copyLinkBtn').onclick=async()=>{try{await navigator.clipboard.writeText(lastLink);alert('تم نسخ الرابط');}catch(e){prompt('انسخ رابط QR:',lastLink);}};
+$('refreshBtn').onclick=loadCustomers;
+async function loadCustomers(){
+ $('refreshBtn').disabled=true;try{const d=await api({action:'admin_list'},true),list=Array.isArray(d.customers)?d.customers:[];if(!list.length){$('customers').innerHTML='<p class="sub">لا يوجد عملاء حتى الآن.</p>';return;}
+ let h='<div class="tablewrap"><table><thead><tr><th>العميل</th><th>السيارة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>';
+ for(const c of list){const on=c.active===true;h+='<tr><td>'+escapeHtml(c.customer_name||'—')+'</td><td>'+escapeHtml(c.vehicle_label||'—')+'</td><td><span class="pill '+(on?'on':'off')+'">'+(on?'نشط':'متوقف')+'</span></td><td>'+(on?'<button class="danger deactivateBtn" data-id="'+escapeHtml(c.id)+'">إيقاف السيارة</button>':'<button class="activate activateBtn" data-id="'+escapeHtml(c.id)+'">إعادة التفعيل</button>')+'</td></tr>';}
+ h+='</tbody></table></div>';$('customers').innerHTML=h;
+ document.querySelectorAll('.deactivateBtn').forEach(b=>b.onclick=()=>changeStatus(b.dataset.id,false,b));
+ document.querySelectorAll('.activateBtn').forEach(b=>b.onclick=()=>changeStatus(b.dataset.id,true,b));
+ }catch(e){$('customers').innerHTML='<p class="msg err">'+escapeHtml(e.message)+'</p>';}finally{$('refreshBtn').disabled=false;}
+}
+async function changeStatus(id,enable,btn){
+ const question=enable?'هل تريد إعادة تفعيل هذه السيارة؟ سيتمكن الزوار من إرسال البلاغات مرة أخرى.':'هل تريد إيقاف هذه السيارة؟';if(!confirm(question))return;btn.disabled=true;
+ try{await api({action:enable?'admin_activate':'admin_deactivate',id},true);alert(enable?'تمت إعادة تفعيل السيارة بنجاح.':'تم إيقاف السيارة بنجاح.');await loadCustomers();}
+ catch(e){alert((enable?'فشلت إعادة التفعيل: ':'فشل الإيقاف: ')+e.message);btn.disabled=false;}
+}
+const params=new URLSearchParams(location.search),token=params.get('t');
+if(token){$('admin').classList.add('hidden');$('visitor').classList.remove('hidden');$('alertForm').onsubmit=async e=>{e.preventDefault();const issue=document.querySelector('input[name="issue"]:checked')?.value;if(!issue)return;const b=$('alertForm').querySelector('button[type="submit"]');b.disabled=true;b.textContent='جارٍ إرسال التنبيه...';try{const d=await api({action:'public_alert',token,issue,details:$('details').value.trim()});showMsg($('visitorMsg'),d.message||'تم إرسال التنبيه.',true);$('alertForm').reset();b.textContent='تم الإرسال';}catch(err){showMsg($('visitorMsg'),err.message);b.disabled=false;b.textContent='إرسال التنبيه';}};}
+</script>
+</body>
+</html>
