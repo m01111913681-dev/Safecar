@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SafeCar QR | لوحة التحكم</title>
+<style>
+:root{--ink:#101820;--gold:#f4c542;--bg:#f3f5f7;--card:#fff;--muted:#64748b;--line:#dbe1e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink)}
+header{background:#101820;color:white;padding:18px 16px;text-align:center;border-bottom:5px solid var(--gold)}
+header h1{margin:0;font-size:25px;letter-spacing:.4px}header p{margin:7px 0 0;color:#d8dee6;font-size:13px}
+main{max-width:760px;margin:18px auto;padding:0 12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 5px 18px #0b1b2a0a}
+h2{font-size:19px;margin:0 0 14px}.sub{color:var(--muted);font-size:13px;line-height:1.7}
+label{display:block;font-weight:bold;font-size:14px;margin:12px 0 6px}
+input,textarea{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:white}
+textarea{min-height:85px;resize:vertical}
+button{border:0;border-radius:10px;padding:13px 16px;font:inherit;font-weight:bold;cursor:pointer}
+.primary{background:var(--gold);color:#111}.dark{background:#101820;color:white}.danger{background:#fee2e2;color:#991b1b}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btnrow button{flex:1;min-width:130px}
+.hidden{display:none!important}.msg{padding:11px;border-radius:9px;margin:10px 0;font-size:14px;line-height:1.6}.ok{background:#dcfce7;color:#166534}.err{background:#fee2e2;color:#991b1b}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:10px 7px;border-bottom:1px solid var(--line);text-align:right}th{background:#f8fafc}
+.pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#dcfce7;color:#166534;font-size:11px}
+.issue{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:10px;margin:8px 0;background:#fff}
+.issue input{width:auto;margin-top:3px}.public{max-width:540px;margin:25px auto}.public .brand{font-size:24px;font-weight:bold;text-align:center}.public .brand span{color:#b88b00}.public button{width:100%;margin-top:12px}
+.small{font-size:12px;color:var(--muted);line-height:1.7}
+#stickerCanvas{width:100%;max-width:360px;border:1px solid var(--line);border-radius:12px;background:white}
+</style>
+</head>
+<body>
+<header><h1>SafeCar QR</h1><p>لوحة إدارة استيكرات التواصل الآمن للسيارات</p></header>
+<main>
+<section id="admin">
+  <div id="loginCard" class="card">
+    <h2>دخول لوحة التحكم</h2>
+    <p class="sub">هذه اللوحة خاصة بمدير المشروع فقط.</p>
+    <label>كلمة مرور الإدارة</label><input id="adminPass" type="password" autocomplete="current-password" placeholder="أدخل كلمة المرور">
+    <div class="btnrow"><button class="primary" id="loginBtn">دخول</button></div>
+    <div id="loginMsg"></div>
+  </div>
+  <div id="dashboard" class="hidden">
+    <div class="card">
+      <h2>إضافة سيارة / عميل جديد</h2>
+      <label>اسم العميل (اختياري)</label><input id="customerName" placeholder="مثلاً: أحمد">
+      <label>رقم صاحب السيارة (مطلوب)</label><input id="ownerPhone" type="tel" placeholder="+201xxxxxxxxx">
+      <label>رقم الطوارئ الإضافي (مطلوب)</label><input id="emergencyPhone" type="tel" placeholder="+201xxxxxxxxx">
+      <label>رقم اللوحة أو اسم مميز (اختياري)</label><input id="vehicleLabel" placeholder="مثلاً: س ي د 1234">
+      <label class="issue"><input id="consent" type="checkbox"><span>أؤكد أن صاحب الرقم ورقم الطوارئ وافقا على استقبال تنبيهات مرتبطة بالاستيكر عبر واتساب وSMS.</span></label>
+      <div class="btnrow"><button class="primary" id="createBtn">إنشاء QR</button></div>
+      <div id="createMsg"></div>
+    </div>
+    <div id="resultCard" class="card hidden">
+      <h2>الاستيكر جاهز</h2>
+      <p class="sub">حمّل الصورة واطبعها. اختبر الكود بهاتف آخر قبل تسليمه للعميل.</p>
+      <canvas id="stickerCanvas" width="1200" height="1600"></canvas>
+      <div class="btnrow"><button class="primary" id="downloadBtn">تحميل PNG للطباعة</button><button class="dark" id="copyLinkBtn">نسخ رابط QR</button></div>
+      <p class="small" id="createdInfo"></p>
+    </div>
+    <div class="card">
+      <div class="btnrow" style="justify-content:space-between"><h2 style="margin:0">العملاء المسجلون</h2><button class="dark" id="refreshBtn">تحديث القائمة</button></div>
+      <div id="customers"><p class="sub">سجل الدخول لعرض البيانات.</p></div>
+    </div>
+    <div class="btnrow"><button class="danger" id="logoutBtn">تسجيل الخروج</button></div>
+  </div>
+</section>
+
+<section id="visitor" class="public hidden">
+  <div class="card">
+    <div class="brand">SafeCar <span>QR</span></div>
+    <p class="sub" style="text-align:center">تواصل مع صاحب السيارة دون إظهار رقم هاتفه</p>
+    <h2 style="text-align:center">ما سبب التواصل؟</h2>
+    <form id="alertForm">
+      <label class="issue"><input type="radio" name="issue" value="الأنوار متروكة" required><span>💡 الأنوار متروكة</span></label>
+      <label class="issue"><input type="radio" name="issue" value="السيارة تعيق المرور"><span>🚗 السيارة تعيق المرور</span></label>
+      <label class="issue"><input type="radio" name="issue" value="مشكلة في إطار السيارة"><span>🛞 مشكلة في إطار السيارة</span></label>
+      <label class="issue"><input type="radio" name="issue" value="حادث أو حالة طوارئ"><span>🚨 حادث أو حالة طوارئ</span></label>
+      <label class="issue"><input type="radio" name="issue" value="حريق أو خطر"><span>🔥 حريق أو خطر</span></label>
+      <label class="issue"><input type="radio" name="issue" value="سبب آخر"><span>✍️ سبب آخر</span></label>
+      <label>تفاصيل إضافية (اختياري)</label><textarea id="details" maxlength="300" placeholder="اكتب وصفاً مختصراً للمشكلة بدون بيانات شخصية"></textarea>
+      <button class="primary" type="submit">إرسال التنبيه</button>
+      <div id="visitorMsg"></div>
+    </form>
+    <p class="small">لن يظهر لك رقم هاتف صاحب السيارة. في حالة وجود خطر فوري على الحياة، اتصل برقم الطوارئ المحلي مباشرة ولا تعتمد على هذا الموقع وحده.</p>
+  </div>
+</section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const FUNCTION_URL = "PASTE_YOUR_SUPABASE_FUNCTION_URL_HERE";
+let adminPassword = "";
+let lastLink = "";
+const $ = id => document.getElementById(id);
+function showMsg(el,text,ok=false){el.innerHTML='<div class="msg '+(ok?'ok':'err')+'">'+escapeHtml(text)+'</div>'}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function api(body,admin=false){
+ const headers={'Content-Type':'application/json'};
+ if(admin) headers['x-admin-password']=adminPassword;
+ const r=await fetch(FUNCTION_URL,{method:'POST',headers,body:JSON.stringify(body)});
+ const data=await r.json().catch(()=>({error:'استجابة غير مفهومة من الخادم'}));
+ if(!r.ok) throw new Error(data.error||'حدث خطأ');
+ return data;
+}
+function normalizePhone(v){
+ let p=v.replace(/[^\d+]/g,'');
+ if(p.startsWith('01')) p='+20'+p.slice(1);
+ if(p.startsWith('20')) p='+'+p;
+ return p;
+}
+$('loginBtn').onclick=async()=>{
+ adminPassword=$('adminPass').value.trim();
+ try{await api({action:'admin_list'},true);$('loginCard').classList.add('hidden');$('dashboard').classList.remove('hidden');loadCustomers()}
+ catch(e){adminPassword='';showMsg($('loginMsg'),e.message)}
+};
+$('logoutBtn').onclick=()=>{adminPassword='';$('dashboard').classList.add('hidden');$('loginCard').classList.remove('hidden');$('adminPass').value=''};
+$('createBtn').onclick=async()=>{
+ const owner=normalizePhone($('ownerPhone').value), emergency=normalizePhone($('emergencyPhone').value);
+ if(!owner||!emergency){showMsg($('createMsg'),'أدخل رقم صاحب السيارة ورقم الطوارئ.');return}
+ if(!$('consent').checked){showMsg($('createMsg'),'لازم تؤكد موافقة أصحاب الأرقام على استقبال التنبيهات.');return}
+ $('createBtn').disabled=true;
+ try{
+  const d=await api({action:'admin_create',customer_name:$('customerName').value.trim(),owner_phone:owner,emergency_phone:emergency,vehicle_label:$('vehicleLabel').value.trim()},true);
+  lastLink=location.origin+location.pathname+'?t='+encodeURIComponent(d.token);
+  await drawSticker(lastLink,$('vehicleLabel').value.trim());
+  $('resultCard').classList.remove('hidden');$('createdInfo').textContent='معرّف السيارة: '+d.id+' — احتفظ بالرابط ولا تشاركه إلا مع العميل.';
+  showMsg($('createMsg'),'تم إنشاء الكود بنجاح.',true);loadCustomers();
+ }catch(e){showMsg($('createMsg'),e.message)}
+ finally{$('createBtn').disabled=false}
+};
+async function drawSticker(url,label){
+ const canvas=$('stickerCanvas'),ctx=canvas.getContext('2d');
+ ctx.fillStyle='#101820';ctx.fillRect(0,0,1200,1600);
+ ctx.fillStyle='#f4c542';ctx.fillRect(0,0,1200,28);
+ ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 100px Arial';ctx.fillText('SafeCar QR',600,190);
+ ctx.fillStyle='#f4c542';ctx.font='bold 48px Arial';ctx.fillText('SCAN TO CONTACT DRIVER',600,275);
+ ctx.fillStyle='#fff';ctx.fillRect(210,365,780,780);
+ const holder=document.createElement('div');holder.style.position='fixed';holder.style.left='-9999px';document.body.appendChild(holder);
+ new QRCode(holder,{text:url,width:740,height:740,colorDark:'#101820',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+ await new Promise(r=>setTimeout(r,250));
+ const qr=holder.querySelector('canvas')||holder.querySelector('img');
+ if(qr){if(qr.tagName==='CANVAS')ctx.drawImage(qr,230,385,740,740);else{await new Promise(res=>{qr.onload=res; if(qr.complete)res()});ctx.drawImage(qr,230,385,740,740)}}
+ holder.remove();
+ ctx.fillStyle='#fff';ctx.font='bold 48px Arial';ctx.fillText('اختر المشكلة وأرسل تنبيهاً',600,1260);
+ ctx.font='36px Arial';ctx.fillText('رقم الهاتف غير ظاهر للزائر',600,1330);
+ ctx.fillStyle='#f4c542';ctx.font='bold 40px Arial';ctx.fillText('خصوصيتك محفوظة',600,1440);
+ ctx.fillStyle='#fff';ctx.font='24px Arial';ctx.fillText(label||'ملصق تواصل آمن للسيارات',600,1510);
+}
+$('downloadBtn').onclick=()=>{const a=document.createElement('a');a.download='SafeCar-QR-Sticker.png';a.href=$('stickerCanvas').toDataURL('image/png');a.click()};
+$('copyLinkBtn').onclick=async()=>{await navigator.clipboard.writeText(lastLink);alert('تم نسخ الرابط')};
+$('refreshBtn').onclick=loadCustomers;
+async function loadCustomers(){
+ try{
+ const d=await api({action:'admin_list'},true);
+ if(!d.customers.length){$('customers').innerHTML='<p class="sub">لا يوجد عملاء حتى الآن.</p>';return}
+ let html='<div style="overflow:auto"><table><thead><tr><th>العميل</th><th>السيارة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>';
+ for(const c of d.customers){html+='<tr><td>'+escapeHtml(c.customer_name||'—')+'</td><td>'+escapeHtml(c.vehicle_label||'—')+'</td><td>'+(c.active?'<span class="pill">نشط</span>':'متوقف')+'</td><td><button class="danger" style="padding:7px" onclick="deactivate('+JSON.stringify(c.id)+')">'+(c.active?'إيقاف':'—')+'</button></td></tr>'}
+ html+='</tbody></table></div>';$('customers').innerHTML=html;
+ }catch(e){$('customers').innerHTML='<p class="sub">'+escapeHtml(e.message)+'</p>'}
+}
+window.deactivate=async id=>{if(!confirm('إيقاف هذا الكود؟ لن يستطيع الزوار إرسال تنبيهات جديدة.'))return;try{await api({action:'admin_deactivate',id},true);loadCustomers()}catch(e){alert(e.message)}};
+
+const params=new URLSearchParams(location.search), token=params.get('t');
+if(token){
+ $('admin').classList.add('hidden');$('visitor').classList.remove('hidden');
+ $('alertForm').onsubmit=async e=>{
+  e.preventDefault();const issue=document.querySelector('input[name="issue"]:checked')?.value;
+  if(!issue)return;
+  const btn=$('alertForm').querySelector('button');btn.disabled=true;btn.textContent='جارٍ إرسال التنبيه...';
+  try{const d=await api({action:'public_alert',token,issue,details:$('details').value.trim()});showMsg($('visitorMsg'),d.message||'تم إرسال التنبيه.',true);$('alertForm').reset();btn.textContent='تم الإرسال'}
+  catch(err){showMsg($('visitorMsg'),err.message);btn.disabled=false;btn.textContent='إرسال التنبيه'}
+ };
+}
+</script>
+</body></html>
