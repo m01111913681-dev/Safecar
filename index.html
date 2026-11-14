@@ -145,16 +145,51 @@ async function drawSticker(url,label){
 $('downloadBtn').onclick=()=>{const a=document.createElement('a');a.download='SafeCar-QR-Sticker.png';a.href=$('stickerCanvas').toDataURL('image/png');a.click()};
 $('copyLinkBtn').onclick=async()=>{await navigator.clipboard.writeText(lastLink);alert('تم نسخ الرابط')};
 $('refreshBtn').onclick=loadCustomers;
+
 async function loadCustomers(){
- try{
- const d=await api({action:'admin_list'},true);
- if(!d.customers.length){$('customers').innerHTML='<p class="sub">لا يوجد عملاء حتى الآن.</p>';return}
- let html='<div style="overflow:auto"><table><thead><tr><th>العميل</th><th>السيارة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>';
- for(const c of d.customers){html+='<tr><td>'+escapeHtml(c.customer_name||'—')+'</td><td>'+escapeHtml(c.vehicle_label||'—')+'</td><td>'+(c.active?'<span class="pill">نشط</span>':'متوقف')+'</td><td><button class="danger" style="padding:7px" onclick="deactivate('+JSON.stringify(c.id)+')">'+(c.active?'إيقاف':'—')+'</button></td></tr>'}
- html+='</tbody></table></div>';$('customers').innerHTML=html;
- }catch(e){$('customers').innerHTML='<p class="sub">'+escapeHtml(e.message)+'</p>'}
+  try{
+    const d=await api({action:'admin_list'},true);
+
+    if(!d.customers.length){
+      $('customers').innerHTML='<p class="sub">لا يوجد عملاء حتى الآن.</p>';
+      return;
+    }
+
+    let html='<div style="overflow:auto"><table><thead><tr><th>العميل</th><th>السيارة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>';
+
+    for(const c of d.customers){
+      html+='<tr><td>'+escapeHtml(c.customer_name||'—')+
+      '</td><td>'+escapeHtml(c.vehicle_label||'—')+
+      '</td><td>'+(c.active?'نشط':'متوقف')+
+      '</td><td>'+(c.active?
+      '<button class="danger deactivateBtn" data-id="'+escapeHtml(c.id)+'">إيقاف</button>':
+      'متوقف')+'</td></tr>';
+    }
+
+    html+='</tbody></table></div>';
+    $('customers').innerHTML=html;
+
+    document.querySelectorAll('.deactivateBtn').forEach(btn=>{
+      btn.onclick=()=>deactivate(btn.dataset.id);
+    });
+
+  }catch(e){
+    $('customers').innerHTML='<p class="msg err">'+escapeHtml(e.message)+'</p>';
+  }
 }
-window.deactivate=async id=>{if(!confirm('إيقاف هذا الكود؟ لن يستطيع الزوار إرسال تنبيهات جديدة.'))return;try{await api({action:'admin_deactivate',id},true);loadCustomers()}catch(e){alert(e.message)}};
+
+async function deactivate(id){
+  if(!confirm('هل تريد إيقاف هذه السيارة؟'))return;
+
+  try{
+    await api({action:'admin_deactivate',id},true);
+    alert('تم إرسال طلب الإيقاف بنجاح');
+    await loadCustomers();
+  }catch(e){
+    alert('فشل الإيقاف: '+e.message);
+  }
+}
+
 
 const params=new URLSearchParams(location.search), token=params.get('t');
 if(token){
