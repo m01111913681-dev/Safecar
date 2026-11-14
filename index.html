@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SafeCar QR | لوحة التحكم</title>
 <style>
-:root{--ink:#101820;--gold:#173f73;--bg:#f3f5f7;--line:#dbe1e8;--muted:#64748b}
+:root{--ink:#142235;--gold:#18b7a5;--bg:#f2f7f8;--line:#d7e3e8;--muted:#526579}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink)}
-header{background:linear-gradient(135deg,#101820,#243d50);color:#fff;padding:20px;text-align:center;border-bottom:5px solid var(--gold)}
+header{background:linear-gradient(120deg,#101d2e 0%,#183c4b 58%,#14665f 100%);color:#fff;padding:22px 18px;text-align:center;border-bottom:5px solid #18b7a5}
 header h1{margin:0;font-size:26px}header p{margin:7px 0 0;color:#d8dee6;font-size:13px}
-main{max-width:820px;margin:18px auto;padding:0 12px}.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px;margin:14px 0;box-shadow:0 6px 22px #0b1b2a0c}
+main{max-width:820px;margin:18px auto;padding:0 12px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin:14px 0;box-shadow:0 8px 26px #10283b12}
 h2{font-size:19px;margin:0 0 14px}.sub,.small{color:var(--muted);font-size:13px;line-height:1.8}
 label{display:block;font-weight:bold;font-size:14px;margin:12px 0 6px}input,textarea,select{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff}textarea{min-height:85px}
-button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bold;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
-.primary{background:var(--gold);color:#111}.dark{background:#101820;color:#fff}.danger{background:#fee2e2;color:#991b1b}.activate{background:#dcfce7;color:#166534}
+button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bold;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}button:not(:disabled){transition:transform .15s,filter .15s}button:not(:disabled):active{transform:scale(.98)}input:focus,textarea:focus,select:focus{outline:3px solid #18b7a533;border-color:#18a99b}
+.primary{background:linear-gradient(135deg,#18b7a5,#0d887f);color:#fff;box-shadow:0 5px 14px #18b7a533}.dark{background:#142235;color:#fff}.danger{background:#fee2e2;color:#991b1b}.activate{background:#dcfce7;color:#166534}
 .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btnrow button{flex:1;min-width:130px}.hidden{display:none!important}
 .msg{padding:11px;border-radius:9px;margin:10px 0;font-size:14px;line-height:1.7}.ok{background:#dcfce7;color:#166534}.err{background:#fee2e2;color:#991b1b}
 .issue{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:10px;margin:8px 0;background:#fff}.issue input{width:auto;margin-top:3px}
-.public{max-width:540px;margin:25px auto}.public .brand{font-size:24px;font-weight:bold;text-align:center}.public .brand span{color:#24558f}.public button{width:100%;margin-top:12px}
+.public{max-width:540px;margin:25px auto}.public .brand{font-size:24px;font-weight:bold;text-align:center}.public .brand span{color:#18b7a5}.public button{width:100%;margin-top:12px}
 #stickerCanvas{width:100%;max-width:360px;border:1px solid var(--line);border-radius:14px;background:#fff;display:block;margin:auto}
 .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:540px;border-collapse:collapse;font-size:13px}td,th{padding:10px 7px;border-bottom:1px solid var(--line);text-align:right}th{background:#f8fafc}
 .pill{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:bold}.on{background:#dcfce7;color:#166534}.off{background:#fee2e2;color:#991b1b}
@@ -45,7 +45,7 @@ button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bo
 <div id="consentGroup"><label class="issue"><input id="consent" type="checkbox"><span>أؤكد أن صاحب الرقم ورقم الطوارئ وافقا على استقبال التنبيهات المرتبطة بالاستيكر.</span></label></div>
 <div id="whatsappNotice" class="notice hidden">تنبيه: واتساب المباشر يفتح محادثة مع الرقم المدخل، والرقم سيظهر للزائر. هذا النوع لا يمر بفلتر SafeCar ولا يمكننا فحص الرسائل قبل وصولها. لو عايز فلترة للسبام والمعاكسات اختار «بلاغات SafeCar».</div>
 <div class="btnrow"><button class="primary" id="createBtn">إنشاء QR</button></div><div id="createMsg"></div></div>
-<div id="resultCard" class="card hidden"><h2>الاستيكر جاهز</h2><p class="sub" id="resultHelp">تصميم SafeCar جاهز للطباعة. اختبر الكود بهاتف آخر قبل تسليمه للعميل.</p><canvas id="stickerCanvas" width="1200" height="1600"></canvas><div class="btnrow"><button class="primary" id="downloadBtn">تحميل PNG للطباعة</button><button class="dark" id="copyLinkBtn">نسخ رابط QR</button></div><p class="small" id="createdInfo"></p></div>
+<div id="resultCard" class="card hidden"><h2>الاستيكر جاهز</h2><p class="sub" id="resultHelp">تصميم SafeCar جاهز للطباعة. اختبر الكود بهاتف آخر قبل تسليمه للعميل.</p><canvas id="stickerCanvas" width="1145" height="1374"></canvas><div class="btnrow"><button class="primary" id="downloadBtn">تحميل PNG للطباعة</button><button class="dark" id="copyLinkBtn">نسخ رابط QR</button></div><p class="small" id="createdInfo"></p></div>
 <div class="card"><div class="headrow"><h2>العملاء المسجلون</h2><button class="dark" id="refreshBtn">تحديث القائمة</button></div><div id="customers"><p class="sub">سجل الدخول لعرض البيانات.</p></div></div>
 <div class="btnrow"><button class="danger" id="logoutBtn">تسجيل الخروج</button></div>
 </div>
@@ -118,50 +118,111 @@ $('createBtn').onclick=async()=>{
 function roundRect(ctx,x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.fill();}
 async function drawSticker(url,label,mode){
  const canvas=$('stickerCanvas'),ctx=canvas.getContext('2d');
- const g=ctx.createLinearGradient(0,0,1200,1600);
- g.addColorStop(0,'#061326');g.addColorStop(.52,'#102d4d');g.addColorStop(1,'#050c17');
- ctx.fillStyle=g;ctx.fillRect(0,0,1200,1600);
- ctx.fillStyle='#173f73';ctx.fillRect(0,0,1200,24);
- // Soft automotive curves
- ctx.strokeStyle='rgba(244,197,66,.35)';ctx.lineWidth=7;
- ctx.beginPath();ctx.arc(600,780,570,Math.PI*1.08,Math.PI*1.92);ctx.stroke();
+ const W=1145,H=1374;
+
+ // Electric blue SafeCar campaign background, matching the supplied reference.
+ const bg=ctx.createLinearGradient(0,0,W,H);
+ bg.addColorStop(0,'#078ff0');bg.addColorStop(.42,'#0757c8');bg.addColorStop(1,'#031b63');
+ ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+ // Soft blue light blooms.
+ function glow(x,y,r,color){
+  const g=ctx.createRadialGradient(x,y,5,x,y,r);
+  g.addColorStop(0,color);g.addColorStop(1,'rgba(0,35,120,0)');
+  ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);
+ }
+ glow(170,360,440,'rgba(75,220,255,.75)');
+ glow(970,430,430,'rgba(25,170,255,.55)');
+ glow(570,1040,480,'rgba(0,190,255,.35)');
+
+ // Decorative light streaks.
+ ctx.save();ctx.globalAlpha=.26;
+ for(let k=0;k<7;k++){
+  ctx.strokeStyle='#d9f7ff';ctx.lineWidth=8-k*.7;
+  ctx.beginPath();ctx.moveTo(-80,350+k*18);ctx.lineTo(420,560+k*18);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(1220,350+k*18);ctx.lineTo(730,560+k*18);ctx.stroke();
+ }
+ ctx.restore();
+
+ // Headline at the top.
  ctx.textAlign='center';ctx.direction='rtl';
- ctx.fillStyle='#173f73';ctx.font='bold 58px Tahoma';
- ctx.fillText('عايز توصل لصاحب العربية؟',600,135);
- ctx.fillStyle='#ffffff';ctx.font='bold 82px Tahoma';
- ctx.fillText('اعمل سكان ووصّله!',600,245);
- ctx.fillStyle='#dbe7f5';ctx.font='bold 38px Tahoma';
- ctx.fillText(mode==='whatsapp'?'امسح الكود وافتح واتساب':'امسح الكود واكتب رسالتك',600,330);
- // QR panel
- roundRect(ctx,230,390,740,800,52,'#173f73');
- roundRect(ctx,250,410,700,760,40,'#ffffff');
- const holder=document.createElement('div');holder.style.position='fixed';holder.style.left='-9999px';document.body.appendChild(holder);
- new QRCode(holder,{text:url,width:620,height:620,colorDark:'#071426',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
- await new Promise(r=>setTimeout(r,300));
+ ctx.shadowColor='rgba(0,25,90,.25)';ctx.shadowBlur=12;
+ ctx.fillStyle='#fff';ctx.font='bold 65px Tahoma,Arial';
+ ctx.fillText('طب وايه اللي يمنع أي حد',572,120);
+ ctx.font='bold 104px Tahoma,Arial';
+ ctx.fillText('يبعتلك أي حاجة؟',572,235);
+ ctx.shadowBlur=0;
+
+ // Side information cards.
+ function panel(x,y,w,h,icon,line1,line2){
+  ctx.save();ctx.shadowColor='rgba(0,20,80,.25)';ctx.shadowBlur=28;ctx.shadowOffsetY=10;
+  roundRect(ctx,x,y,w,h,32,'rgba(255,255,255,.94)');
+  ctx.restore();
+  ctx.save();ctx.fillStyle='#0757c8';ctx.textAlign='center';ctx.direction='ltr';
+  ctx.font='bold 55px Arial';ctx.fillText(icon,x+58,y+h/2+17);
+  ctx.direction='rtl';ctx.fillStyle='#082b70';ctx.font='bold 27px Tahoma';
+  ctx.fillText(line1,x+w*.62,y+58);ctx.fillText(line2,x+w*.62,y+96);
+  ctx.beginPath();ctx.arc(x+w-42,y+h/2,23,0,Math.PI*2);ctx.fillStyle='#0879e8';ctx.fill();
+  ctx.strokeStyle='#fff';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(x+w-54,y+h/2);ctx.lineTo(x+w-45,y+h/2+10);ctx.lineTo(x+w-29,y+h/2-11);ctx.stroke();
+  ctx.restore();
+ }
+ panel(38,355,345,165,'●','ممكن تعرف','صاحب العربية');
+ panel(28,610,345,165,'▧','رسائل واضحة','ومفيدة');
+ panel(765,390,345,165,'◖','تواصل','بسهولة');
+ panel(775,650,345,165,'•••','إلغاء بلاغ','المعاكسات');
+
+ // QR card, tilted slightly like the reference. QR itself remains a real generated code.
+ const holder=document.createElement('div');
+ holder.style.position='fixed';holder.style.left='-9999px';holder.style.top='0';
+ document.body.appendChild(holder);
+ new QRCode(holder,{text:url,width:360,height:360,colorDark:'#071426',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+ await new Promise(r=>setTimeout(r,250));
  const qr=holder.querySelector('canvas')||holder.querySelector('img');
  if(!qr){holder.remove();throw new Error('تعذر إنشاء QR. تأكد من اتصال الإنترنت.');}
- if(qr.tagName==='CANVAS')ctx.drawImage(qr,290,445,620,620);
- else{if(!qr.complete)await new Promise((res,rej)=>{qr.onload=res;qr.onerror=rej;});ctx.drawImage(qr,290,445,620,620);}
+ if(qr.tagName==='IMG'&&!qr.complete)await new Promise((res,rej)=>{qr.onload=res;qr.onerror=rej;});
+
+ ctx.save();
+ ctx.translate(572,755);ctx.rotate(-.075);
+ ctx.shadowColor='rgba(0,12,65,.38)';ctx.shadowBlur=30;ctx.shadowOffsetX=12;ctx.shadowOffsetY=20;
+ roundRect(ctx,-205,-345,410,690,42,'#073f9c');
+ ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
+ roundRect(ctx,-193,-333,386,666,34,'#ffffff');
+
+ // Brand and verified mark.
+ ctx.textAlign='center';ctx.direction='ltr';
+ ctx.fillStyle='#0b347d';ctx.font='bold italic 48px Arial';
+ ctx.fillText('Safe',-32,-250);
+ ctx.fillStyle='#0788ed';ctx.fillText('Car',72,-250);
+ ctx.beginPath();ctx.arc(126,-257,28,0,Math.PI*2);ctx.fillStyle='#0879e8';ctx.fill();
+ ctx.strokeStyle='#fff';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(113,-257);ctx.lineTo(123,-246);ctx.lineTo(142,-269);ctx.stroke();
+
+ // QR white zone with blue corner brackets.
+ ctx.fillStyle='#f7fbff';ctx.fillRect(-160,-190,320,350);
+ ctx.strokeStyle='#0788ed';ctx.lineWidth=9;ctx.lineCap='round';
+ const corners=[[-155,-180,1,1],[155,-180,-1,1],[-155,145,1,-1],[155,145,-1,-1]];
+ corners.forEach(([x,y,sx,sy])=>{ctx.beginPath();ctx.moveTo(x+sx*38,y);ctx.lineTo(x,y);ctx.lineTo(x,y+sy*38);ctx.stroke();});
+ if(qr.tagName==='CANVAS')ctx.drawImage(qr,-145,-170,290,290);
+ else ctx.drawImage(qr,-145,-170,290,290);
  holder.remove();
- ctx.fillStyle='#071426';ctx.direction='ltr';ctx.font='bold 35px Arial';
- ctx.fillText('SCAN • CONTACT • SAFE',600,1125);
- // Moderation chips
- const chips=[
-  {x:165,t:'السبام مرفوض'},
-  {x:455,t:'المعاكسات مرفوضة'},
-  {x:745,t:'الإساءة مرفوضة'},
-  {x:1035,t:'الروابط الدعائية مرفوضة'}
- ];
- ctx.direction='rtl';ctx.font='bold 25px Tahoma';
- chips.forEach(ch=>{
-  ctx.beginPath();ctx.arc(ch.x,1240,27,0,Math.PI*2);ctx.fillStyle='#d92d20';ctx.fill();
-  ctx.strokeStyle='#fff';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(ch.x-12,1228);ctx.lineTo(ch.x+12,1252);ctx.moveTo(ch.x+12,1228);ctx.lineTo(ch.x-12,1252);ctx.stroke();
-  ctx.fillStyle='#ffffff';ctx.fillText(ch.t,ch.x,1300);
- });
- ctx.direction='ltr';ctx.fillStyle='#ffffff';ctx.font='bold italic 112px Arial';
- ctx.fillText('Safe',470,1460);ctx.fillStyle='#173f73';ctx.fillText('Car',710,1460);
- ctx.fillStyle='#dbe7f5';ctx.font='bold 27px Arial';ctx.fillText('SMART VEHICLE CONTACT',600,1525);
- ctx.direction='rtl';ctx.fillStyle='#173f73';ctx.font='bold 31px Tahoma';ctx.fillText('خصوصيتك محفوظة',600,1570);
+
+ ctx.direction='rtl';ctx.fillStyle='#082b70';ctx.font='bold 27px Tahoma';
+ ctx.fillText('امسح الكود وتواصل مع',0,205);
+ ctx.fillText('صاحب العربية',0,239);
+ ctx.strokeStyle='#0788ed';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-145,260);ctx.lineTo(145,260);ctx.stroke();
+ ctx.direction='ltr';ctx.fillStyle='#082b70';ctx.font='bold italic 27px Arial';
+ ctx.fillText('Scan to contact owner',0,294);
+ ctx.fillStyle='#0b347d';ctx.font='bold italic 35px Arial';
+ ctx.fillText('SafeCar',0,323);
+ ctx.restore();
+
+ // Bottom project identity, mirroring the reference poster.
+ ctx.save();ctx.textAlign='left';ctx.direction='ltr';
+ ctx.fillStyle='#fff';ctx.font='bold italic 76px Arial';ctx.shadowColor='rgba(0,20,80,.3)';ctx.shadowBlur=10;
+ ctx.fillText('SafeCar',58,1290);
+ ctx.strokeStyle='#fff';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(65,1217);ctx.quadraticCurveTo(200,1160,350,1217);ctx.stroke();
+ ctx.textAlign='right';ctx.font='bold 35px Arial';ctx.fillText('safecar.com',1080,1282);
+ ctx.beginPath();ctx.moveTo(880,1302);ctx.lineTo(1080,1302);ctx.stroke();
+ ctx.restore();
 }
 $('downloadBtn').onclick=()=>{const a=document.createElement('a');a.download='SafeCar-QR-Sticker.png';a.href=$('stickerCanvas').toDataURL('image/png');a.click();};
 $('copyLinkBtn').onclick=async()=>{try{await navigator.clipboard.writeText(lastLink);alert('تم نسخ الرابط');}catch(e){prompt('انسخ رابط QR:',lastLink);}};
