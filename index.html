@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SafeCar QR | لوحة التحكم</title>
 <style>
-:root{--ink:#101820;--gold:#f4c542;--bg:#f3f5f7;--line:#dbe1e8;--muted:#64748b}
+:root{--ink:#101820;--gold:#173f73;--bg:#f3f5f7;--line:#dbe1e8;--muted:#64748b}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink)}
 header{background:linear-gradient(135deg,#101820,#243d50);color:#fff;padding:20px;text-align:center;border-bottom:5px solid var(--gold)}
 header h1{margin:0;font-size:26px}header p{margin:7px 0 0;color:#d8dee6;font-size:13px}
@@ -17,12 +17,12 @@ button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bo
 .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btnrow button{flex:1;min-width:130px}.hidden{display:none!important}
 .msg{padding:11px;border-radius:9px;margin:10px 0;font-size:14px;line-height:1.7}.ok{background:#dcfce7;color:#166534}.err{background:#fee2e2;color:#991b1b}
 .issue{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:10px;margin:8px 0;background:#fff}.issue input{width:auto;margin-top:3px}
-.public{max-width:540px;margin:25px auto}.public .brand{font-size:24px;font-weight:bold;text-align:center}.public .brand span{color:#b88b00}.public button{width:100%;margin-top:12px}
+.public{max-width:540px;margin:25px auto}.public .brand{font-size:24px;font-weight:bold;text-align:center}.public .brand span{color:#24558f}.public button{width:100%;margin-top:12px}
 #stickerCanvas{width:100%;max-width:360px;border:1px solid var(--line);border-radius:14px;background:#fff;display:block;margin:auto}
 .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:540px;border-collapse:collapse;font-size:13px}td,th{padding:10px 7px;border-bottom:1px solid var(--line);text-align:right}th{background:#f8fafc}
 .pill{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:bold}.on{background:#dcfce7;color:#166534}.off{background:#fee2e2;color:#991b1b}
 .headrow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.notice{padding:10px 12px;background:#fff8df;border:1px solid #f2d77b;border-radius:10px;color:#735900;font-size:13px;line-height:1.8;margin-top:10px}
+.notice{padding:10px 12px;background:#eaf1fb;border:1px solid #b7c9e3;border-radius:10px;color:#173f73;font-size:13px;line-height:1.8;margin-top:10px}
 </style>
 </head>
 <body>
@@ -43,14 +43,14 @@ button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bo
 <div id="emergencyGroup"><label>رقم الطوارئ الإضافي (مطلوب)</label><input id="emergencyPhone" type="tel" inputmode="tel" placeholder="01012345678 أو +201012345678"></div>
 <label>رقم اللوحة أو اسم مميز (اختياري)</label><input id="vehicleLabel" placeholder="مثلاً: س ي د 1234">
 <div id="consentGroup"><label class="issue"><input id="consent" type="checkbox"><span>أؤكد أن صاحب الرقم ورقم الطوارئ وافقا على استقبال التنبيهات المرتبطة بالاستيكر.</span></label></div>
-<div id="whatsappNotice" class="notice hidden">في هذا النوع، مسح الكود يفتح محادثة واتساب مباشرة مع الرقم المدخل. رقم صاحب السيارة سيكون ظاهرًا للزائر، ولن يتم إنشاء سجل للسيارة في قاعدة بيانات SafeCar.</div>
+<div id="whatsappNotice" class="notice hidden">تنبيه: واتساب المباشر يفتح محادثة مع الرقم المدخل، والرقم سيظهر للزائر. هذا النوع لا يمر بفلتر SafeCar ولا يمكننا فحص الرسائل قبل وصولها. لو عايز فلترة للسبام والمعاكسات اختار «بلاغات SafeCar».</div>
 <div class="btnrow"><button class="primary" id="createBtn">إنشاء QR</button></div><div id="createMsg"></div></div>
 <div id="resultCard" class="card hidden"><h2>الاستيكر جاهز</h2><p class="sub" id="resultHelp">تصميم SafeCar جاهز للطباعة. اختبر الكود بهاتف آخر قبل تسليمه للعميل.</p><canvas id="stickerCanvas" width="1200" height="1600"></canvas><div class="btnrow"><button class="primary" id="downloadBtn">تحميل PNG للطباعة</button><button class="dark" id="copyLinkBtn">نسخ رابط QR</button></div><p class="small" id="createdInfo"></p></div>
 <div class="card"><div class="headrow"><h2>العملاء المسجلون</h2><button class="dark" id="refreshBtn">تحديث القائمة</button></div><div id="customers"><p class="sub">سجل الدخول لعرض البيانات.</p></div></div>
 <div class="btnrow"><button class="danger" id="logoutBtn">تسجيل الخروج</button></div>
 </div>
 </section>
-<section id="visitor" class="public hidden"><div class="card"><div class="brand">SafeCar <span>QR</span></div><p class="sub" style="text-align:center">تواصل مع صاحب السيارة دون إظهار رقم هاتفه</p><h2 style="text-align:center">ما سبب التواصل؟</h2>
+<section id="visitor" class="public hidden"><div class="card"><div class="brand">SafeCar <span>QR</span></div><h2 style="text-align:center">عايز توصل لصاحب العربية؟</h2><p class="sub" style="text-align:center">اعمل سكان واكتب رسالتك — هنراجعها تلقائيًا قبل إرسالها</p><h2 style="text-align:center">ما سبب التواصل؟</h2>
 <form id="alertForm">
 <label class="issue"><input type="radio" name="issue" value="الأنوار متروكة" required><span>💡 الأنوار متروكة</span></label>
 <label class="issue"><input type="radio" name="issue" value="السيارة تعيق المرور"><span>🚗 السيارة تعيق المرور</span></label>
@@ -60,7 +60,7 @@ button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bo
 <label class="issue"><input type="radio" name="issue" value="سبب آخر"><span>✍️ سبب آخر</span></label>
 <label>تفاصيل إضافية (اختياري)</label><textarea id="details" maxlength="300" placeholder="اكتب وصفاً مختصراً للمشكلة بدون بيانات شخصية"></textarea>
 <button class="primary" type="submit">إرسال التنبيه</button><div id="visitorMsg"></div></form>
-<p class="small">لن يظهر لك رقم هاتف صاحب السيارة. في حالة وجود خطر فوري على الحياة، اتصل برقم الطوارئ المحلي مباشرة ولا تعتمد على هذا الموقع وحده.</p></div></section>
+<p class="notice">الرسائل المسيئة أو المعاكسة أو الدعائية والروابط غير المسموح بها يتم رفضها قبل تسجيل البلاغ أو إرساله لصاحب السيارة. لن يظهر لك رقم هاتف صاحب السيارة.</p><p class="small">في حالة وجود خطر فوري على الحياة، اتصل برقم الطوارئ المحلي مباشرة ولا تعتمد على هذا الموقع وحده.</p></div></section>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -83,7 +83,7 @@ $('qrType').onchange=()=>{
  $('emergencyGroup').classList.toggle('hidden',direct);
  $('consentGroup').classList.toggle('hidden',direct);
  $('whatsappNotice').classList.toggle('hidden',!direct);
- $('modeHelp').textContent=direct?'الكود يفتح محادثة واتساب مباشرة مع رقم صاحب السيارة.':'الكود يفتح صفحة SafeCar، ويمكن للزائر إرسال بلاغ دون معرفة رقم صاحب السيارة.';
+ $('modeHelp').textContent=direct?'الكود يفتح محادثة واتساب مباشرة، لكن هذا الوضع لا يفلتر الرسائل.':'الكود يفتح صفحة SafeCar، وتُفحص الرسالة على الخادم قبل تسجيلها أو إرسالها.';
  $('createBtn').textContent=direct?'إنشاء QR واتساب مباشر':'إنشاء QR بلاغات SafeCar';
 };
 $('loginBtn').onclick=async()=>{adminPassword=$('adminPass').value.trim();if(!adminPassword){showMsg($('loginMsg'),'اكتب كلمة مرور الإدارة أولاً.');return;}$('loginBtn').disabled=true;try{await api({action:'admin_list'},true);$('loginCard').classList.add('hidden');$('dashboard').classList.remove('hidden');await loadCustomers();}catch(e){adminPassword='';showMsg($('loginMsg'),e.message);}finally{$('loginBtn').disabled=false;}};
@@ -117,18 +117,51 @@ $('createBtn').onclick=async()=>{
 };
 function roundRect(ctx,x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.fill();}
 async function drawSticker(url,label,mode){
- const canvas=$('stickerCanvas'),ctx=canvas.getContext('2d'),g=ctx.createLinearGradient(0,0,1200,1600);g.addColorStop(0,'#101820');g.addColorStop(1,'#29475b');ctx.fillStyle=g;ctx.fillRect(0,0,1200,1600);
- ctx.fillStyle='#f4c542';ctx.fillRect(0,0,1200,26);ctx.globalAlpha=.12;ctx.beginPath();ctx.arc(1100,150,230,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(70,1500,270,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
- ctx.textAlign='center';ctx.direction='ltr';ctx.fillStyle='#fff';ctx.font='bold 118px Arial';ctx.fillText('SafeCar',600,205);ctx.fillStyle='#f4c542';ctx.font='bold 48px Arial';ctx.fillText(mode==='whatsapp'?'DIRECT WHATSAPP CONTACT':'SMART VEHICLE CONTACT',600,285);
- ctx.direction='rtl';ctx.fillStyle='#eaf0f5';ctx.font='bold 46px Tahoma';ctx.fillText(mode==='whatsapp'?'امسح الكود لمراسلة صاحب السيارة':'امسح الكود للتواصل مع صاحب السيارة',600,390);
- roundRect(ctx,145,465,910,865,48,'#fff');
+ const canvas=$('stickerCanvas'),ctx=canvas.getContext('2d');
+ const g=ctx.createLinearGradient(0,0,1200,1600);
+ g.addColorStop(0,'#061326');g.addColorStop(.52,'#102d4d');g.addColorStop(1,'#050c17');
+ ctx.fillStyle=g;ctx.fillRect(0,0,1200,1600);
+ ctx.fillStyle='#173f73';ctx.fillRect(0,0,1200,24);
+ // Soft automotive curves
+ ctx.strokeStyle='rgba(244,197,66,.35)';ctx.lineWidth=7;
+ ctx.beginPath();ctx.arc(600,780,570,Math.PI*1.08,Math.PI*1.92);ctx.stroke();
+ ctx.textAlign='center';ctx.direction='rtl';
+ ctx.fillStyle='#173f73';ctx.font='bold 58px Tahoma';
+ ctx.fillText('عايز توصل لصاحب العربية؟',600,135);
+ ctx.fillStyle='#ffffff';ctx.font='bold 82px Tahoma';
+ ctx.fillText('اعمل سكان ووصّله!',600,245);
+ ctx.fillStyle='#dbe7f5';ctx.font='bold 38px Tahoma';
+ ctx.fillText(mode==='whatsapp'?'امسح الكود وافتح واتساب':'امسح الكود واكتب رسالتك',600,330);
+ // QR panel
+ roundRect(ctx,230,390,740,800,52,'#173f73');
+ roundRect(ctx,250,410,700,760,40,'#ffffff');
  const holder=document.createElement('div');holder.style.position='fixed';holder.style.left='-9999px';document.body.appendChild(holder);
- new QRCode(holder,{text:url,width:760,height:760,colorDark:'#101820',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
- await new Promise(r=>setTimeout(r,300));const qr=holder.querySelector('canvas')||holder.querySelector('img');if(!qr){holder.remove();throw new Error('تعذر إنشاء QR. تأكد من اتصال الإنترنت.');}
- if(qr.tagName==='CANVAS')ctx.drawImage(qr,220,515,760,760);else{if(!qr.complete)await new Promise((res,rej)=>{qr.onload=res;qr.onerror=rej;});ctx.drawImage(qr,220,515,760,760);}holder.remove();
- ctx.direction='rtl';ctx.fillStyle='#101820';ctx.font='bold 43px Tahoma';ctx.fillText(mode==='whatsapp'?'سيتم فتح محادثة واتساب مباشرة':'خصوصيتك محفوظة — رقمك غير ظاهر',600,1265);
- ctx.fillStyle='#d6a900';ctx.font='bold 48px Tahoma';ctx.fillText(label|| (mode==='whatsapp'?'تواصل عبر واتساب':'ملصق التواصل الآمن للسيارات'),600,1415);
- ctx.fillStyle='#eaf0f5';ctx.direction='ltr';ctx.font='30px Arial';ctx.fillText('SCAN • CONTACT • SAFE',600,1515);
+ new QRCode(holder,{text:url,width:620,height:620,colorDark:'#071426',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+ await new Promise(r=>setTimeout(r,300));
+ const qr=holder.querySelector('canvas')||holder.querySelector('img');
+ if(!qr){holder.remove();throw new Error('تعذر إنشاء QR. تأكد من اتصال الإنترنت.');}
+ if(qr.tagName==='CANVAS')ctx.drawImage(qr,290,445,620,620);
+ else{if(!qr.complete)await new Promise((res,rej)=>{qr.onload=res;qr.onerror=rej;});ctx.drawImage(qr,290,445,620,620);}
+ holder.remove();
+ ctx.fillStyle='#071426';ctx.direction='ltr';ctx.font='bold 35px Arial';
+ ctx.fillText('SCAN • CONTACT • SAFE',600,1125);
+ // Moderation chips
+ const chips=[
+  {x:165,t:'السبام مرفوض'},
+  {x:455,t:'المعاكسات مرفوضة'},
+  {x:745,t:'الإساءة مرفوضة'},
+  {x:1035,t:'الروابط الدعائية مرفوضة'}
+ ];
+ ctx.direction='rtl';ctx.font='bold 25px Tahoma';
+ chips.forEach(ch=>{
+  ctx.beginPath();ctx.arc(ch.x,1240,27,0,Math.PI*2);ctx.fillStyle='#d92d20';ctx.fill();
+  ctx.strokeStyle='#fff';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(ch.x-12,1228);ctx.lineTo(ch.x+12,1252);ctx.moveTo(ch.x+12,1228);ctx.lineTo(ch.x-12,1252);ctx.stroke();
+  ctx.fillStyle='#ffffff';ctx.fillText(ch.t,ch.x,1300);
+ });
+ ctx.direction='ltr';ctx.fillStyle='#ffffff';ctx.font='bold italic 112px Arial';
+ ctx.fillText('Safe',470,1460);ctx.fillStyle='#173f73';ctx.fillText('Car',710,1460);
+ ctx.fillStyle='#dbe7f5';ctx.font='bold 27px Arial';ctx.fillText('SMART VEHICLE CONTACT',600,1525);
+ ctx.direction='rtl';ctx.fillStyle='#173f73';ctx.font='bold 31px Tahoma';ctx.fillText('خصوصيتك محفوظة',600,1570);
 }
 $('downloadBtn').onclick=()=>{const a=document.createElement('a');a.download='SafeCar-QR-Sticker.png';a.href=$('stickerCanvas').toDataURL('image/png');a.click();};
 $('copyLinkBtn').onclick=async()=>{try{await navigator.clipboard.writeText(lastLink);alert('تم نسخ الرابط');}catch(e){prompt('انسخ رابط QR:',lastLink);}};
