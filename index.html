@@ -18,7 +18,7 @@ button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bo
 .msg{padding:11px;border-radius:9px;margin:10px 0;font-size:14px;line-height:1.7}.ok{background:#dcfce7;color:#166534}.err{background:#fee2e2;color:#991b1b}
 .issue{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:10px;margin:8px 0;background:#fff}.issue input{width:auto;margin-top:3px}
 .public{max-width:540px;margin:25px auto}.public .brand{font-size:24px;font-weight:bold;text-align:center}.public .brand span{color:#18b7a5}.public button{width:100%;margin-top:12px}
-#stickerCanvas{width:100%;max-width:360px;border:1px solid var(--line);border-radius:14px;background:#fff;display:block;margin:auto}
+#stickerCanvas{width:100%;max-width:360px;height:auto;aspect-ratio:1/2;border:0;border-radius:0;background:transparent;display:block;margin:auto}
 .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:540px;border-collapse:collapse;font-size:13px}td,th{padding:10px 7px;border-bottom:1px solid var(--line);text-align:right}th{background:#f8fafc}
 .pill{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:bold}.on{background:#dcfce7;color:#166534}.off{background:#fee2e2;color:#991b1b}
 .headrow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -45,7 +45,7 @@ button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bo
 <div id="consentGroup"><label class="issue"><input id="consent" type="checkbox"><span>أؤكد أن صاحب الرقم ورقم الطوارئ وافقا على استقبال التنبيهات المرتبطة بالاستيكر.</span></label></div>
 <div id="whatsappNotice" class="notice hidden">تنبيه: واتساب المباشر يفتح محادثة مع الرقم المدخل، والرقم سيظهر للزائر. هذا النوع لا يمر بفلتر SafeCar ولا يمكننا فحص الرسائل قبل وصولها. لو عايز فلترة للسبام والمعاكسات اختار «بلاغات SafeCar».</div>
 <div class="btnrow"><button class="primary" id="createBtn">إنشاء QR</button></div><div id="createMsg"></div></div>
-<div id="resultCard" class="card hidden"><h2>الاستيكر جاهز</h2><p class="sub" id="resultHelp">تصميم SafeCar جاهز للطباعة. اختبر الكود بهاتف آخر قبل تسليمه للعميل.</p><canvas id="stickerCanvas" width="1145" height="1374"></canvas><div class="btnrow"><button class="primary" id="downloadBtn">تحميل PNG للطباعة</button><button class="dark" id="copyLinkBtn">نسخ رابط QR</button></div><p class="small" id="createdInfo"></p></div>
+<div id="resultCard" class="card hidden"><h2>الاستيكر جاهز</h2><p class="sub" id="resultHelp">تصميم SafeCar جاهز للطباعة. اختبر الكود بهاتف آخر قبل تسليمه للعميل.</p><canvas id="stickerCanvas" width="720" height="1440"></canvas><div class="btnrow"><button class="primary" id="downloadBtn">تحميل PNG للطباعة</button><button class="dark" id="copyLinkBtn">نسخ رابط QR</button></div><p class="small" id="createdInfo"></p></div>
 <div class="card"><div class="headrow"><h2>العملاء المسجلون</h2><button class="dark" id="refreshBtn">تحديث القائمة</button></div><div id="customers"><p class="sub">سجل الدخول لعرض البيانات.</p></div></div>
 <div class="btnrow"><button class="danger" id="logoutBtn">تسجيل الخروج</button></div>
 </div>
@@ -116,133 +116,4 @@ $('createBtn').onclick=async()=>{
  finally{$('createBtn').disabled=false;}
 };
 function roundRect(ctx,x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.fill();}
-async function drawSticker(url,label,mode){
- const canvas=$('stickerCanvas'),ctx=canvas.getContext('2d');
- const W=1145,H=1374;
-
- // Electric blue SafeCar campaign background, matching the supplied reference.
- const bg=ctx.createLinearGradient(0,0,W,H);
- bg.addColorStop(0,'#078ff0');bg.addColorStop(.42,'#0757c8');bg.addColorStop(1,'#031b63');
- ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-
- // Soft blue light blooms.
- function glow(x,y,r,color){
-  const g=ctx.createRadialGradient(x,y,5,x,y,r);
-  g.addColorStop(0,color);g.addColorStop(1,'rgba(0,35,120,0)');
-  ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);
- }
- glow(170,360,440,'rgba(75,220,255,.75)');
- glow(970,430,430,'rgba(25,170,255,.55)');
- glow(570,1040,480,'rgba(0,190,255,.35)');
-
- // Decorative light streaks.
- ctx.save();ctx.globalAlpha=.26;
- for(let k=0;k<7;k++){
-  ctx.strokeStyle='#d9f7ff';ctx.lineWidth=8-k*.7;
-  ctx.beginPath();ctx.moveTo(-80,350+k*18);ctx.lineTo(420,560+k*18);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(1220,350+k*18);ctx.lineTo(730,560+k*18);ctx.stroke();
- }
- ctx.restore();
-
- // Headline at the top.
- ctx.textAlign='center';ctx.direction='rtl';
- ctx.shadowColor='rgba(0,25,90,.25)';ctx.shadowBlur=12;
- ctx.fillStyle='#fff';ctx.font='bold 65px Tahoma,Arial';
- ctx.fillText('طب وايه اللي يمنع أي حد',572,120);
- ctx.font='bold 104px Tahoma,Arial';
- ctx.fillText('يبعتلك أي حاجة؟',572,235);
- ctx.shadowBlur=0;
-
- // Side information cards.
- function panel(x,y,w,h,icon,line1,line2){
-  ctx.save();ctx.shadowColor='rgba(0,20,80,.25)';ctx.shadowBlur=28;ctx.shadowOffsetY=10;
-  roundRect(ctx,x,y,w,h,32,'rgba(255,255,255,.94)');
-  ctx.restore();
-  ctx.save();ctx.fillStyle='#0757c8';ctx.textAlign='center';ctx.direction='ltr';
-  ctx.font='bold 55px Arial';ctx.fillText(icon,x+58,y+h/2+17);
-  ctx.direction='rtl';ctx.fillStyle='#082b70';ctx.font='bold 27px Tahoma';
-  ctx.fillText(line1,x+w*.62,y+58);ctx.fillText(line2,x+w*.62,y+96);
-  ctx.beginPath();ctx.arc(x+w-42,y+h/2,23,0,Math.PI*2);ctx.fillStyle='#0879e8';ctx.fill();
-  ctx.strokeStyle='#fff';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(x+w-54,y+h/2);ctx.lineTo(x+w-45,y+h/2+10);ctx.lineTo(x+w-29,y+h/2-11);ctx.stroke();
-  ctx.restore();
- }
- panel(38,355,345,165,'●','ممكن تعرف','صاحب العربية');
- panel(28,610,345,165,'▧','رسائل واضحة','ومفيدة');
- panel(765,390,345,165,'◖','تواصل','بسهولة');
- panel(775,650,345,165,'•••','إلغاء بلاغ','المعاكسات');
-
- // QR card, tilted slightly like the reference. QR itself remains a real generated code.
- const holder=document.createElement('div');
- holder.style.position='fixed';holder.style.left='-9999px';holder.style.top='0';
- document.body.appendChild(holder);
- new QRCode(holder,{text:url,width:360,height:360,colorDark:'#071426',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
- await new Promise(r=>setTimeout(r,250));
- const qr=holder.querySelector('canvas')||holder.querySelector('img');
- if(!qr){holder.remove();throw new Error('تعذر إنشاء QR. تأكد من اتصال الإنترنت.');}
- if(qr.tagName==='IMG'&&!qr.complete)await new Promise((res,rej)=>{qr.onload=res;qr.onerror=rej;});
-
- ctx.save();
- ctx.translate(572,755);ctx.rotate(-.075);
- ctx.shadowColor='rgba(0,12,65,.38)';ctx.shadowBlur=30;ctx.shadowOffsetX=12;ctx.shadowOffsetY=20;
- roundRect(ctx,-205,-345,410,690,42,'#073f9c');
- ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
- roundRect(ctx,-193,-333,386,666,34,'#ffffff');
-
- // Brand and verified mark.
- ctx.textAlign='center';ctx.direction='ltr';
- ctx.fillStyle='#0b347d';ctx.font='bold italic 48px Arial';
- ctx.fillText('Safe',-32,-250);
- ctx.fillStyle='#0788ed';ctx.fillText('Car',72,-250);
- ctx.beginPath();ctx.arc(126,-257,28,0,Math.PI*2);ctx.fillStyle='#0879e8';ctx.fill();
- ctx.strokeStyle='#fff';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(113,-257);ctx.lineTo(123,-246);ctx.lineTo(142,-269);ctx.stroke();
-
- // QR white zone with blue corner brackets.
- ctx.fillStyle='#f7fbff';ctx.fillRect(-160,-190,320,350);
- ctx.strokeStyle='#0788ed';ctx.lineWidth=9;ctx.lineCap='round';
- const corners=[[-155,-180,1,1],[155,-180,-1,1],[-155,145,1,-1],[155,145,-1,-1]];
- corners.forEach(([x,y,sx,sy])=>{ctx.beginPath();ctx.moveTo(x+sx*38,y);ctx.lineTo(x,y);ctx.lineTo(x,y+sy*38);ctx.stroke();});
- if(qr.tagName==='CANVAS')ctx.drawImage(qr,-145,-170,290,290);
- else ctx.drawImage(qr,-145,-170,290,290);
- holder.remove();
-
- ctx.direction='rtl';ctx.fillStyle='#082b70';ctx.font='bold 27px Tahoma';
- ctx.fillText('امسح الكود وتواصل مع',0,205);
- ctx.fillText('صاحب العربية',0,239);
- ctx.strokeStyle='#0788ed';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-145,260);ctx.lineTo(145,260);ctx.stroke();
- ctx.direction='ltr';ctx.fillStyle='#082b70';ctx.font='bold italic 27px Arial';
- ctx.fillText('Scan to contact owner',0,294);
- ctx.fillStyle='#0b347d';ctx.font='bold italic 35px Arial';
- ctx.fillText('SafeCar',0,323);
- ctx.restore();
-
- // Bottom project identity, mirroring the reference poster.
- ctx.save();ctx.textAlign='left';ctx.direction='ltr';
- ctx.fillStyle='#fff';ctx.font='bold italic 76px Arial';ctx.shadowColor='rgba(0,20,80,.3)';ctx.shadowBlur=10;
- ctx.fillText('SafeCar',58,1290);
- ctx.strokeStyle='#fff';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(65,1217);ctx.quadraticCurveTo(200,1160,350,1217);ctx.stroke();
- ctx.textAlign='right';ctx.font='bold 35px Arial';ctx.fillText('safecar.com',1080,1282);
- ctx.beginPath();ctx.moveTo(880,1302);ctx.lineTo(1080,1302);ctx.stroke();
- ctx.restore();
-}
-$('downloadBtn').onclick=()=>{const a=document.createElement('a');a.download='SafeCar-QR-Sticker.png';a.href=$('stickerCanvas').toDataURL('image/png');a.click();};
-$('copyLinkBtn').onclick=async()=>{try{await navigator.clipboard.writeText(lastLink);alert('تم نسخ الرابط');}catch(e){prompt('انسخ رابط QR:',lastLink);}};
-$('refreshBtn').onclick=loadCustomers;
-async function loadCustomers(){
- $('refreshBtn').disabled=true;try{const d=await api({action:'admin_list'},true),list=Array.isArray(d.customers)?d.customers:[];if(!list.length){$('customers').innerHTML='<p class="sub">لا يوجد عملاء حتى الآن.</p>';return;}
- let h='<div class="tablewrap"><table><thead><tr><th>العميل</th><th>السيارة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>';
- for(const c of list){const on=c.active===true;h+='<tr><td>'+escapeHtml(c.customer_name||'—')+'</td><td>'+escapeHtml(c.vehicle_label||'—')+'</td><td><span class="pill '+(on?'on':'off')+'">'+(on?'نشط':'متوقف')+'</span></td><td>'+(on?'<button class="danger deactivateBtn" data-id="'+escapeHtml(c.id)+'">إيقاف السيارة</button>':'<button class="activate activateBtn" data-id="'+escapeHtml(c.id)+'">إعادة التفعيل</button>')+'</td></tr>';}
- h+='</tbody></table></div>';$('customers').innerHTML=h;
- document.querySelectorAll('.deactivateBtn').forEach(b=>b.onclick=()=>changeStatus(b.dataset.id,false,b));
- document.querySelectorAll('.activateBtn').forEach(b=>b.onclick=()=>changeStatus(b.dataset.id,true,b));
- }catch(e){$('customers').innerHTML='<p class="msg err">'+escapeHtml(e.message)+'</p>';}finally{$('refreshBtn').disabled=false;}
-}
-async function changeStatus(id,enable,btn){
- const question=enable?'هل تريد إعادة تفعيل هذه السيارة؟ سيتمكن الزوار من إرسال البلاغات مرة أخرى.':'هل تريد إيقاف هذه السيارة؟';if(!confirm(question))return;btn.disabled=true;
- try{await api({action:enable?'admin_activate':'admin_deactivate',id},true);alert(enable?'تمت إعادة تفعيل السيارة بنجاح.':'تم إيقاف السيارة بنجاح.');await loadCustomers();}
- catch(e){alert((enable?'فشلت إعادة التفعيل: ':'فشل الإيقاف: ')+e.message);btn.disabled=false;}
-}
-const params=new URLSearchParams(location.search),token=params.get('t');
-if(token){$('admin').classList.add('hidden');$('visitor').classList.remove('hidden');$('alertForm').onsubmit=async e=>{e.preventDefault();const issue=document.querySelector('input[name="issue"]:checked')?.value;if(!issue)return;const b=$('alertForm').querySelector('button[type="submit"]');b.disabled=true;b.textContent='جارٍ إرسال التنبيه...';try{const d=await api({action:'public_alert',token,issue,details:$('details').value.trim()});showMsg($('visitorMsg'),d.message||'تم إرسال التنبيه.',true);$('alertForm').reset();b.textContent='تم الإرسال';}catch(err){showMsg($('visitorMsg'),err.message);b.disabled=false;b.textContent='إرسال التنبيه';}};}
-</script>
-</body>
-</html>
+const STICKER_TEMPLATE="data:image/png;base64,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
