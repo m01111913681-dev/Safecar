@@ -1,203 +1,66 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SafeCar QR | لوحة التحكم</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#102726"><meta name="description" content="SafeCar — بلّغ صاحب العربية بأمان، من غير ما تعرف رقمه."><title>SafeCar | تواصل آمن لسيارتك</title>
 <style>
-:root{--ink:#142235;--gold:#18b7a5;--bg:#f2f7f8;--line:#d7e3e8;--muted:#526579}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink)}
-header{background:linear-gradient(120deg,#101d2e 0%,#183c4b 58%,#14665f 100%);color:#fff;padding:22px 18px;text-align:center;border-bottom:5px solid #18b7a5}
-header h1{margin:0;font-size:26px}header p{margin:7px 0 0;color:#d8dee6;font-size:13px}
-main{max-width:820px;margin:18px auto;padding:0 12px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin:14px 0;box-shadow:0 8px 26px #10283b12}
-h2{font-size:19px;margin:0 0 14px}.sub,.small{color:var(--muted);font-size:13px;line-height:1.8}
-label{display:block;font-weight:bold;font-size:14px;margin:12px 0 6px}input,textarea,select{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff}textarea{min-height:85px}
-button{border:0;border-radius:10px;padding:12px 15px;font:inherit;font-weight:bold;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}button:not(:disabled){transition:transform .15s,filter .15s}button:not(:disabled):active{transform:scale(.98)}input:focus,textarea:focus,select:focus{outline:3px solid #18b7a533;border-color:#18a99b}
-.primary{background:linear-gradient(135deg,#18b7a5,#0d887f);color:#fff;box-shadow:0 5px 14px #18b7a533}.dark{background:#142235;color:#fff}.danger{background:#fee2e2;color:#991b1b}.activate{background:#dcfce7;color:#166534}
-.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btnrow button{flex:1;min-width:130px}.hidden{display:none!important}
-.msg{padding:11px;border-radius:9px;margin:10px 0;font-size:14px;line-height:1.7}.ok{background:#dcfce7;color:#166534}.err{background:#fee2e2;color:#991b1b}
-.issue{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:10px;margin:8px 0;background:#fff}.issue input{width:auto;margin-top:3px}
-.public{max-width:540px;margin:25px auto}.public .brand{font-size:24px;font-weight:bold;text-align:center}.public .brand span{color:#18b7a5}.public button{width:100%;margin-top:12px}
-#stickerCanvas{width:100%;max-width:360px;border:1px solid var(--line);border-radius:14px;background:#fff;display:block;margin:auto}
-.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:540px;border-collapse:collapse;font-size:13px}td,th{padding:10px 7px;border-bottom:1px solid var(--line);text-align:right}th{background:#f8fafc}
-.pill{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:bold}.on{background:#dcfce7;color:#166534}.off{background:#fee2e2;color:#991b1b}
-.headrow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.notice{padding:10px 12px;background:#eaf1fb;border:1px solid #b7c9e3;border-radius:10px;color:#173f73;font-size:13px;line-height:1.8;margin-top:10px}
+:root{--ink:#102726;--muted:#596b66;--lime:#c7f76f;--paper:#f5f6ef;--line:#dce3d9;--red:#b43e36;--white:#fff;--teal:#276b59}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.8 Tahoma,Arial,sans-serif}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button,a{ -webkit-tap-highlight-color:transparent}button{cursor:pointer;border:0}button:disabled{opacity:.55;cursor:wait}button:focus-visible,a:focus-visible{outline:3px solid #4d9c6b;outline-offset:4px}input,select{width:100%;padding:13px;border:1px solid #becbbc;border-radius:12px;background:white;color:var(--ink)}input:focus,select:focus{outline:3px solid #c7f76f80;border-color:#527c46}label{display:block;font-weight:700;margin:16px 0 7px}.hidden,[hidden]{display:none!important}.shell{width:min(1120px,100% - 36px);margin:auto}.top{background:var(--ink);color:white}.nav{display:flex;justify-content:space-between;align-items:center;padding:17px 0}.brand{display:flex;align-items:center;gap:10px;direction:ltr;text-decoration:none;color:inherit;font:700 27px Arial;letter-spacing:-1px}.brand b{color:var(--lime)}.mark{width:44px;height:48px}.tag{border:1px solid #ffffff40;border-radius:30px;padding:5px 13px;font-size:12px;color:#e4eddc}.hero{padding:36px 0 62px;position:relative;overflow:hidden}.eyebrow{color:#a7c5ad;font:700 12px Arial;letter-spacing:3px;direction:ltr;text-align:right}.hero h1{font-size:clamp(30px,4vw,49px);line-height:1.55;margin:12px 0 8px;letter-spacing:-1px}.hero h1 em{font-style:normal;color:var(--lime)}.hero p{color:#cad8cd;max-width:570px;margin:0;line-height:2}.hero .serial{position:absolute;left:16px;bottom:45px;color:#41605b;font:700 70px Arial;letter-spacing:-4px}.bodygrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start;margin-top:-26px;position:relative}.card{padding:28px;background:white;border:1px solid var(--line);border-radius:22px;margin-bottom:20px}.card h2{font-size:22px;line-height:1.6;margin:0 0 9px}.muted,.sub{color:var(--muted);font-size:13px}.step{display:inline-grid;place-items:center;background:var(--ink);color:var(--lime);width:30px;height:30px;border-radius:50%;font:bold 14px Arial;margin-left:8px}.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:13px 20px;border-radius:12px;font-weight:700;text-decoration:none;line-height:1.6}.primary{background:var(--ink);color:var(--lime)}.accent{background:var(--lime);color:var(--ink)}.soft{background:#eef3e9;color:var(--ink)}.danger{background:#fff0ed;color:var(--red)}.full{width:100%;margin-top:16px}.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.btnrow>*{flex:1}.line{height:1px;background:var(--line);margin:22px 0}.note{padding:13px 15px;border-radius:12px;background:#f1f5e9;font-size:12px;color:#435746;line-height:1.9}.msg{padding:14px;border-radius:12px;margin-top:14px;font-size:13px;white-space:pre-line;overflow-wrap:anywhere}.ok{background:#ebf7df;color:#315918}.err{background:#fff0ed;color:#942e29}.warn{background:#fff5d7;color:#6a4e0c}.phone{display:flex;align-items:center;direction:ltr;gap:9px}.phone span{background:#f2f4ed;padding:12px;border:1px solid var(--line);border-radius:12px;font-family:Arial}.phone input{direction:ltr;text-align:left}.fields{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.option{position:relative;cursor:pointer;display:flex;align-items:center;gap:10px;margin:0;padding:17px 13px;border:1px solid var(--line);border-radius:14px;background:#fafbf7;font-size:13px;min-height:80px}.option input{position:absolute;width:1px;height:1px;opacity:0}.option:has(input:checked){background:#effbdc;border:2px solid #719f42;padding:16px 12px}.option:has(input:focus-visible){outline:3px solid #70994e}.option i{display:grid;place-items:center;width:34px;height:34px;background:white;border-radius:10px;font-size:21px;font-style:normal;flex-shrink:0}.option small{display:block;color:#6d7c68;font-size:10px;font-weight:400;margin-top:3px}.option.urgent{background:#fff8f4}.camera{padding:20px;border:1px dashed #a4b99a;border-radius:16px;background:#fafbf7;text-align:center;margin:16px 0}.camera video,.camera img{display:block;width:100%;max-height:360px;object-fit:contain;border-radius:12px;background:#102726}.camera p{font-size:12px;color:var(--muted)}.emergency{background:#fff8f1;border-color:#f1d8c4}.emergency h2{font-size:18px}.emergency a{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ead8ca;padding:12px 0;text-decoration:none;color:var(--ink);font-weight:700}.emergency a b{direction:ltr;font:bold 23px Arial}.emergency a:last-of-type{padding-bottom:0}.trust{display:flex;gap:11px;margin:18px 0}.trust b{display:block;font-size:13px}.trust p{margin:2px 0;color:var(--muted);font-size:12px}.trust>span{background:#edf3e6;border-radius:10px;width:34px;height:34px;text-align:center;padding-top:3px;flex-shrink:0}.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:25px 0 32px;font-size:11px;color:#6b7867}.stats{display:flex;gap:15px;margin:12px 0}.stats>div{flex:1;background:#f3f6ed;padding:12px;border-radius:12px}.stats strong{display:block;font:700 26px Arial}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:690px;font-size:12px}td,th{text-align:right;padding:13px 9px;border-bottom:1px solid var(--line)}th{background:#f5f7f0;white-space:nowrap}td[dir=ltr]{text-align:left}.status{padding:4px 8px;border-radius:15px;background:#e9f4dd;color:#396229;white-space:nowrap}.status.off{background:#fff0ed;color:#942e29}.mini{font-size:11px;padding:7px 10px}.sticker{background:#e9eddf;border-radius:15px;padding:20px;text-align:center}.sticker canvas{width:min(100%,330px);height:auto;display:block;margin:auto;border-radius:18px;box-shadow:0 15px 30px #10272625}.stickerhead{font:700 12px Arial;letter-spacing:2px;margin-bottom:15px}.login{max-width:520px;margin:-24px auto 24px;position:relative}.demo{padding:9px 18px;background:#fff2c9;text-align:center;font-size:12px}.success-icon{font-size:36px;color:#446d2c}.report-list{display:grid;gap:12px}.report-item{border:1px solid var(--line);border-radius:13px;padding:15px}.report-item h3{margin:0;font-size:15px}.report-item small{color:var(--muted)}dialog{border:1px solid var(--line);border-radius:18px;max-width:min(90vw,600px);padding:24px}dialog::backdrop{background:#102726aa}dialog img{max-width:100%;max-height:65vh}a{color:var(--teal)}.wide{grid-column:1/-1}@media(max-width:760px){.bodygrid{grid-template-columns:1fr}.shell{width:calc(100% - 26px)}.card{padding:21px;border-radius:19px}.hero{padding:25px 0 52px}.hero .serial{display:none}.tag{font-size:10px;padding:4px 9px}.brand{font-size:24px}.fields{grid-template-columns:1fr}.options{gap:8px}.option{padding:13px 9px;font-size:12px}.option:has(input:checked){padding:12px 8px}.bodygrid aside{display:grid;grid-template-columns:1fr;gap:0}.foot{font-size:10px}.hero h1{font-size:33px}.btnrow{flex-wrap:wrap}.btn{font-size:13px}.login{margin-top:-24px}}@media(prefers-reduced-motion:no-preference){button,a{transition:background .15s,transform .15s}.btn:active{transform:translateY(1px)}}
 </style>
 </head>
 <body>
-<header><h1>SafeCar QR</h1><p>لوحة إدارة استيكرات التواصل الآمن للسيارات</p></header>
-<main>
-<section id="admin">
-<div id="loginCard" class="card"><h2>دخول لوحة التحكم</h2><p class="sub">هذه اللوحة خاصة بمدير المشروع فقط.</p><label>كلمة مرور الإدارة</label><input id="adminPass" type="password" autocomplete="current-password" placeholder="أدخل كلمة المرور"><div class="btnrow"><button class="primary" id="loginBtn">دخول</button></div><div id="loginMsg"></div></div>
-<div id="dashboard" class="hidden">
-<div class="card"><h2>إضافة سيارة / إنشاء QR جديد</h2>
-<label>نوع كود QR</label>
-<select id="qrType">
-<option value="alerts">بلاغات SafeCar (النظام الحالي)</option>
-<option value="whatsapp">واتساب مباشر (بدون تسجيل في قاعدة البيانات)</option>
-</select>
-<p class="sub" id="modeHelp">الكود يفتح صفحة SafeCar، ويمكن للزائر إرسال بلاغ دون معرفة رقم صاحب السيارة.</p>
-<label>اسم العميل (اختياري)</label><input id="customerName" placeholder="مثلاً: أحمد">
-<label>رقم صاحب السيارة (مطلوب)</label><input id="ownerPhone" type="tel" inputmode="tel" placeholder="01012345678 أو +201012345678">
-<div id="emergencyGroup"><label>رقم الطوارئ الإضافي (مطلوب)</label><input id="emergencyPhone" type="tel" inputmode="tel" placeholder="01012345678 أو +201012345678"></div>
-<label>رقم اللوحة أو اسم مميز (اختياري)</label><input id="vehicleLabel" placeholder="مثلاً: س ي د 1234">
-<div id="consentGroup"><label class="issue"><input id="consent" type="checkbox"><span>أؤكد أن صاحب الرقم ورقم الطوارئ وافقا على استقبال التنبيهات المرتبطة بالاستيكر.</span></label></div>
-<div id="whatsappNotice" class="notice hidden">تنبيه: واتساب المباشر يفتح محادثة مع الرقم المدخل، والرقم سيظهر للزائر. هذا النوع لا يمر بفلتر SafeCar ولا يمكننا فحص الرسائل قبل وصولها. لو عايز فلترة للسبام والمعاكسات اختار «بلاغات SafeCar».</div>
-<div class="btnrow"><button class="primary" id="createBtn">إنشاء QR</button></div><div id="createMsg"></div></div>
-<div id="resultCard" class="card hidden"><h2>الاستيكر جاهز</h2><p class="sub" id="resultHelp">تصميم SafeCar جاهز للطباعة. اختبر الكود بهاتف آخر قبل تسليمه للعميل.</p><canvas id="stickerCanvas" width="1200" height="1600"></canvas><div class="btnrow"><button class="primary" id="downloadBtn">تحميل PNG للطباعة</button><button class="dark" id="copyLinkBtn">نسخ رابط QR</button></div><p class="small" id="createdInfo"></p></div>
-<div class="card"><div class="headrow"><h2>العملاء المسجلون</h2><button class="dark" id="refreshBtn">تحديث القائمة</button></div><div id="customers"><p class="sub">سجل الدخول لعرض البيانات.</p></div></div>
-<div class="btnrow"><button class="danger" id="logoutBtn">تسجيل الخروج</button></div>
-</div>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><symbol id="safecar-mark" viewBox="0 0 100 110"><path d="M50 5 90 21v32c0 25-20 44-40 52C30 97 10 78 10 53V21Z" fill="#c7f76f"/><g fill="none" stroke="#102726" stroke-width="5" stroke-linejoin="round"><path d="m27 55 7-19h31l9 19v21h-8v-9H35v9h-8Z"/><path d="M28 55h45M39 44h18"/></g><circle cx="38" cy="61" r="2.5" fill="#102726"/><circle cx="64" cy="61" r="2.5" fill="#102726"/></symbol></defs></svg>
+<div id="demoBanner" class="demo hidden">معاينة تصميم فقط — لا يتم حفظ بيانات أو إرسال رسائل واتساب.</div>
+<header class="top"><div class="shell"><nav class="nav" aria-label="العلامة التجارية"><a class="brand" href="./" aria-label="SafeCar الرئيسية"><svg class="mark"><use href="#safecar-mark"/></svg><span>Safe<b>Car</b></span></a><span class="tag">خصوصيتك في أمان</span></nav><div class="hero"><div class="eyebrow">A LITTLE SCAN. A BIG DIFFERENCE.</div><h1 id="heroTitle">عربيتك ليها حد.<br><em>وصّله التنبيه بأمان.</em></h1><p id="heroText">نور متساب؟ عربية قافلة الطريق؟ بلاغ بسيط منك ممكن يفرق. ابعت تنبيه لصاحب العربية من غير ما يظهر رقمه.</p><div class="serial" aria-hidden="true">SCAN. CARE.</div></div></div></header>
+<main class="shell">
+<section id="login" class="card login"><h2>أهلًا بيك في SafeCar</h2><p class="sub">دخول إدارة السيارات وإنشاء استيكرات التواصل الآمن.</p><form id="loginForm"><label for="adminPass">كلمة مرور الإدارة</label><input id="adminPass" type="password" autocomplete="current-password" required maxlength="256"><button class="btn primary full" id="loginBtn">دخول لوحة التحكم ←</button><div id="loginMsg" role="status" aria-live="polite"></div></form><div class="line"></div><p class="sub">لو عايز تبلّغ عن عربية، افتح الكاميرا وامسح الاستيكر الموجود عليها.</p></section>
+<section id="visitor" class="bodygrid hidden">
+<div><div class="card" id="reportCard"><h2><span class="step">1</span>إيه المشكلة؟</h2><p class="sub">اختار سبب البلاغ. الرسالة بتتبعت بصيغة محددة لمنع الإساءة.</p><form id="alertForm"><div id="issueOptions" class="options"></div><label for="context">وصف إضافي من الاختيارات <span class="muted">(اختياري)</span></label><select id="context"><option value="">بدون تفاصيل إضافية</option value="السيارة أمام مدخل المبنى">السيارة أمام مدخل المبنى</option><option value="السيارة في موقف السيارات">السيارة في موقف السيارات</option><option value="السيارة بجوار الطريق">السيارة بجوار الطريق</option><option value="يرجى الحضور للتحقق من حالة السيارة">يرجى الحضور للتحقق من حالة السيارة</option></select><div class="line"></div><h2><span class="step">2</span>صوّر المشكلة من مكانك</h2><p class="sub" id="photoHint">صورة بالكاميرا تساعدنا نراجع البلاغ. ابعد عن تصوير الوجوه والبيانات الشخصية.</p><div class="camera"><video id="cameraVideo" autoplay playsinline muted hidden></video><img id="photoPreview" alt="معاينة الصورة التي التقطتها" hidden><div id="cameraEmpty"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#527341" stroke-width="1.5" aria-hidden="true"><path d="M8 5 10 3h4l2 2h4v15H4V5Z"/><circle cx="12" cy="12" r="4"/></svg><p>افتح الكاميرا والتقط صورة واضحة للمشكلة.</p></div><div class="btnrow"><button type="button" id="startCamera" class="btn soft">فتح الكاميرا</button><button type="button" id="capturePhoto" class="btn primary hidden">التقاط الصورة</button><button type="button" id="retakePhoto" class="btn soft hidden">إعادة التصوير</button></div><div id="cameraMsg" role="status" aria-live="polite"></div></div><p class="sub hidden" id="emergencyPhotoNote">لو التصوير مش آمن أو هيعطّلك، ابعت بلاغ الطوارئ من غير صورة واتصل بجهات الطوارئ.</p><label style="display:flex;gap:10px;align-items:start;font-size:12px;font-weight:400"><input type="checkbox" id="reportConsent" required style="width:18px;margin-top:5px"><span>أنا موجود عند العربية والبلاغ حقيقي، وأوافق على حفظ الصورة لمراجعة البلاغ.</span></label><button type="submit" class="btn primary full" id="sendBtn" disabled>جارٍ التحقق من كود العربية…</button><div id="visitorMsg" role="status" aria-live="polite"></div></form></div><div id="successCard" class="card hidden" role="status"><div class="success-icon">✓</div><h2 id="successTitle">تم تسجيل البلاغ</h2><p id="successText"></p><p class="sub" id="reportRef"></p><button class="btn soft" id="anotherReport">العودة للصفحة</button></div></div>
+<aside><section class="card emergency"><h2>في خطر؟ اطلب المساعدة.</h2><p class="sub">أرقام الطوارئ في مصر. الاتصال يفتح من تليفونك.</p><a href="tel:123"><span>الإسعاف</span><b>123 ↗</b></a><a href="tel:180"><span>المطافي</span><b>180 ↗</b></a><a href="tel:122"><span>شرطة النجدة</span><b>122 ↗</b></a><p class="sub">ما تعتمدش على وصول تنبيه واتساب وحده في حالة الخطر.</p></section><section class="card"><h2 style="font-size:18px">تنبيه مفيد. وخصوصية محفوظة.</h2><div class="trust"><span>⌁</span><div><b>رقمه مش ظاهر</b><p>التنبيه بيتبعت من SafeCar لصاحب العربية.</p></div></div><div class="trust"><span>✓</span><div><b>بلاغات محددة</b><p>مفيش رسائل حرة أو روابط تسمح بالمعاكسات.</p></div></div><div class="trust"><span>▣</span><div><b>صورة للمراجعة</b><p>التصوير المباشر يقلل التلاعب لكنه مش ضمان لصحة البلاغ. الصور متاحة للإدارة فقط.</p></div></div></section></aside>
 </section>
-<section id="visitor" class="public hidden"><div class="card"><div class="brand">SafeCar <span>QR</span></div><h2 style="text-align:center">عايز توصل لصاحب العربية؟</h2><p class="sub" style="text-align:center">اعمل سكان واكتب رسالتك — هنراجعها تلقائيًا قبل إرسالها</p><h2 style="text-align:center">ما سبب التواصل؟</h2>
-<form id="alertForm">
-<label class="issue"><input type="radio" name="issue" value="الأنوار متروكة" required><span>💡 الأنوار متروكة</span></label>
-<label class="issue"><input type="radio" name="issue" value="السيارة تعيق المرور"><span>🚗 السيارة تعيق المرور</span></label>
-<label class="issue"><input type="radio" name="issue" value="مشكلة في إطار السيارة"><span>🛞 مشكلة في إطار السيارة</span></label>
-<label class="issue"><input type="radio" name="issue" value="حادث أو حالة طوارئ"><span>🚨 حادث أو حالة طوارئ</span></label>
-<label class="issue"><input type="radio" name="issue" value="حريق أو خطر"><span>🔥 حريق أو خطر</span></label>
-<label class="issue"><input type="radio" name="issue" value="سبب آخر"><span>✍️ سبب آخر</span></label>
-<label>تفاصيل إضافية (اختياري)</label><textarea id="details" maxlength="300" placeholder="اكتب وصفاً مختصراً للمشكلة بدون بيانات شخصية"></textarea>
-<button class="primary" type="submit">إرسال التنبيه</button><div id="visitorMsg"></div></form>
-<p class="notice">الرسائل المسيئة أو المعاكسة أو الدعائية والروابط غير المسموح بها يتم رفضها قبل تسجيل البلاغ أو إرساله لصاحب السيارة. لن يظهر لك رقم هاتف صاحب السيارة.</p><p class="small">في حالة وجود خطر فوري على الحياة، اتصل برقم الطوارئ المحلي مباشرة ولا تعتمد على هذا الموقع وحده.</p></div></section>
-</main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<section id="dashboard" class="bodygrid hidden"><div><section class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>لوحة الإدارة</h2><button id="logoutBtn" class="btn soft mini">تسجيل الخروج</button></div><div class="stats"><div><strong id="totalCount">—</strong><small>سيارة مسجلة</small></div><div><strong id="activeCount">—</strong><small>كود نشط</small></div></div></section><section class="card"><h2>سيارة جديدة. تواصل أأمن.</h2><p class="sub">سجّل بيانات المالك، وبعدها حمّل الاستيكر الخاص بالعربية.</p><form id="createForm"><div class="fields"><div class="wide"><label for="customerName">اسم صاحب السيارة بالكامل</label><input id="customerName" autocomplete="name" required maxlength="120" placeholder="الاسم الكامل"></div><div><label for="vehicleLabel">رقم لوحة السيارة</label><input id="vehicleLabel" required maxlength="30" placeholder="س ي د ١٢٣٤"></div><div><label for="ownerPhone">موبايل صاحب السيارة</label><div class="phone"><span>+20</span><input id="ownerPhone" type="tel" inputmode="numeric" autocomplete="tel-national" required maxlength="11" pattern="01[0125][0-9]{8}" placeholder="01012345678" aria-describedby="phoneHelp"></div></div><div class="wide"><label for="emergencyPhone">موبايل شخص للطوارئ</label><div class="phone"><span>+20</span><input id="emergencyPhone" type="tel" inputmode="numeric" required maxlength="11" pattern="01[0125][0-9]{8}" placeholder="01112345678"></div><p class="sub" id="phoneHelp">١١ رقم محلي يبدأ بـ 010 أو 011 أو 012 أو 015. كود الدولة يُضاف تلقائيًا مع حذف الصفر الأول.</p></div></div><label style="display:flex;gap:10px;align-items:start;font-size:12px;font-weight:400"><input id="ownerConsent" type="checkbox" required style="width:18px;margin-top:5px"><span>صاحب السيارة وشخص الطوارئ وافقا على حفظ بياناتهما واستقبال تنبيهات واتساب المتعلقة بالسيارة.</span></label><button class="btn primary full" id="createBtn">إنشاء كود السيارة والاستيكر ←</button><div id="createMsg" role="status" aria-live="polite"></div></form></section></div><aside><section class="card"><div class="stickerhead" dir="ltr">YOUR CAR. YOUR PRIVACY.</div><div class="sticker"><canvas id="stickerCanvas" width="1200" height="1600" aria-label="معاينة تصميم استيكر SafeCar"></canvas></div><p id="stickerHelp" class="sub">معاينة التصميم — بعد تسجيل السيارة هيظهر QR خاص بيها.</p><div class="btnrow"><button class="btn primary" id="downloadBtn" disabled>تحميل الاستيكر</button><button class="btn soft" id="copyLinkBtn" disabled>نسخ الرابط</button></div><button class="btn soft full" id="downloadLogo">تحميل اللوجو SVG</button><p id="stickerMsg" role="status" aria-live="polite"></p></section></aside><section class="card wide"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>السيارات المسجلة</h2><button id="refreshBtn" class="btn soft mini">تحديث</button></div><label for="searchCars" class="muted">بحث بالاسم أو اللوحة أو الموبايل</label><input id="searchCars" type="search" placeholder="ابحث عن سيارة…"><div id="customers" class="tablewrap"></div></section><section class="card wide"><div style="display:flex;justify-content:space-between;align-items:center"><h2>آخر البلاغات</h2><button class="btn soft mini" id="refreshReports">تحديث</button></div><p class="sub">حالة قبول الإرسال منفصلة عن وصول الرسالة. الصور تُعرض للإدارة عبر روابط مؤقتة.</p><div id="reports" class="report-list"></div></section></section>
+<footer class="foot"><span dir="ltr">© SafeCar · SCAN. CARE. CONNECT.</span><span>بلاغك مساعدة، مش وسيلة إزعاج.</span></footer>
+</main><dialog id="photoDialog"><button class="btn soft mini" id="closePhoto">إغلاق</button><p class="sub">صورة مُقدّمة من صاحب البلاغ؛ لم يتم التحقق من أصالتها.</p><img id="adminPhoto" alt="الصورة المرفقة بالبلاغ"></dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-const FUNCTION_URL="https://rlckioiawhrbzjmvxjsb.supabase.co/functions/v1/bright-service";
-let adminPassword="",lastLink="",lastMode="alerts";
-const $=id=>document.getElementById(id);
-function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function showMsg(el,text,ok=false){el.innerHTML='<div class="msg '+(ok?'ok':'err')+'">'+escapeHtml(text)+'</div>';}
-async function api(body,admin=false){const headers={'Content-Type':'application/json'};if(admin)headers['x-admin-password']=adminPassword;const r=await fetch(FUNCTION_URL,{method:'POST',headers,body:JSON.stringify(body)});const d=await r.json().catch(()=>({error:'استجابة غير مفهومة من الخادم'}));if(!r.ok)throw new Error(d.error||'حدث خطأ');return d;}
-function normalizePhone(v){
- let p=String(v||'').replace(/[^\d]/g,'');
- if(p.startsWith('00'))p=p.slice(2);
- if(p.startsWith('0'))p='20'+p.slice(1);
- if(!p.startsWith('20'))p='20'+p;
- return p;
-}
-function validEgyptianMobile(p){return /^201[0125]\d{8}$/.test(p);}
-$('qrType').onchange=()=>{
- const direct=$('qrType').value==='whatsapp';
- $('emergencyGroup').classList.toggle('hidden',direct);
- $('consentGroup').classList.toggle('hidden',direct);
- $('whatsappNotice').classList.toggle('hidden',!direct);
- $('modeHelp').textContent=direct?'الكود يفتح محادثة واتساب مباشرة، لكن هذا الوضع لا يفلتر الرسائل.':'الكود يفتح صفحة SafeCar، وتُفحص الرسالة على الخادم قبل تسجيلها أو إرسالها.';
- $('createBtn').textContent=direct?'إنشاء QR واتساب مباشر':'إنشاء QR بلاغات SafeCar';
-};
-$('loginBtn').onclick=async()=>{adminPassword=$('adminPass').value.trim();if(!adminPassword){showMsg($('loginMsg'),'اكتب كلمة مرور الإدارة أولاً.');return;}$('loginBtn').disabled=true;try{await api({action:'admin_list'},true);$('loginCard').classList.add('hidden');$('dashboard').classList.remove('hidden');await loadCustomers();}catch(e){adminPassword='';showMsg($('loginMsg'),e.message);}finally{$('loginBtn').disabled=false;}};
-$('adminPass').addEventListener('keydown',e=>{if(e.key==='Enter')$('loginBtn').click();});
-$('logoutBtn').onclick=()=>{adminPassword='';$('dashboard').classList.add('hidden');$('loginCard').classList.remove('hidden');$('adminPass').value='';};
-$('createBtn').onclick=async()=>{
- const mode=$('qrType').value,owner=normalizePhone($('ownerPhone').value),emergency=normalizePhone($('emergencyPhone').value);
- if(!validEgyptianMobile(owner)){showMsg($('createMsg'),'أدخل رقم موبايل مصري صحيح، مثل 01012345678.');return;}
- if(mode==='alerts'&& !validEgyptianMobile(emergency)){showMsg($('createMsg'),'أدخل رقم طوارئ مصري صحيح.');return;}
- if(mode==='alerts'&&!$('consent').checked){showMsg($('createMsg'),'لازم تؤكد موافقة أصحاب الأرقام على استقبال التنبيهات.');return;}
- $('createBtn').disabled=true;
- try{
-  let targetLink="",info="";
-  if(mode==='whatsapp'){
-   targetLink='https://wa.me/'+owner;
-   info='QR واتساب مباشر — الرقم: +'+owner+' — لا يتم إنشاء سجل في قاعدة البيانات.';
-  }else{
-   const d=await api({action:'admin_create',customer_name:$('customerName').value.trim(),owner_phone:'+'+owner,emergency_phone:'+'+emergency,vehicle_label:$('vehicleLabel').value.trim()},true);
-   targetLink=location.origin+location.pathname+'?t='+encodeURIComponent(d.token);
-   info='معرّف السيارة: '+d.id+' — احتفظ بالرابط ولا تشاركه إلا مع العميل.';
-   await loadCustomers();
-  }
-  lastLink=targetLink;lastMode=mode;
-  await drawSticker(lastLink,$('vehicleLabel').value.trim(),mode);
-  $('resultCard').classList.remove('hidden');
-  $('resultHelp').textContent=mode==='whatsapp'?'هذا QR يفتح محادثة واتساب مباشرة مع صاحب السيارة.':'تصميم SafeCar جاهز للطباعة. اختبر الكود بهاتف آخر قبل تسليمه للعميل.';
-  $('createdInfo').textContent=info;
-  showMsg($('createMsg'),mode==='whatsapp'?'تم إنشاء QR واتساب مباشرة، بدون حفظ بيانات في قاعدة البيانات.':'تم إنشاء كود البلاغات بنجاح.',true);
- }catch(e){showMsg($('createMsg'),e.message);}
- finally{$('createBtn').disabled=false;}
-};
-function roundRect(ctx,x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.fill();}
-async function drawSticker(url,label,mode){
- const canvas=$('stickerCanvas'),ctx=canvas.getContext('2d');
- // Deep midnight background with teal light accents and a bright white QR panel.
- const g=ctx.createLinearGradient(0,0,1200,1600);
- g.addColorStop(0,'#101d2e');g.addColorStop(.58,'#173c4b');g.addColorStop(1,'#0b1725');
- ctx.fillStyle=g;ctx.fillRect(0,0,1200,1600);
-
- // Teal top stripe and decorative glow rings.
- ctx.fillStyle='#18b7a5';ctx.fillRect(0,0,1200,26);
- const glow=ctx.createRadialGradient(600,760,80,600,760,650);
- glow.addColorStop(0,'rgba(24,183,165,.20)');glow.addColorStop(1,'rgba(24,183,165,0)');
- ctx.fillStyle=glow;ctx.fillRect(0,250,1200,1000);
- ctx.strokeStyle='rgba(91,224,207,.35)';ctx.lineWidth=5;
- ctx.beginPath();ctx.arc(600,790,565,Math.PI*1.08,Math.PI*1.92);ctx.stroke();
-
- // Main Arabic headline: white for maximum contrast, teal for emphasis.
- ctx.textAlign='center';ctx.direction='rtl';
- ctx.fillStyle='#ffffff';ctx.font='bold 65px Tahoma';
- ctx.fillText('عايز توصل لصاحب العربية؟',600,145);
- ctx.fillStyle='#55e0cf';ctx.font='bold 82px Tahoma';
- ctx.fillText('اعمل سكان ووصّله!',600,250);
- ctx.fillStyle='#e5f1f5';ctx.font='bold 38px Tahoma';
- ctx.fillText(mode==='whatsapp'?'امسح الكود وافتح محادثة واتساب':'امسح الكود واكتب رسالتك',600,330);
-
- // QR frame and white center.
- roundRect(ctx,225,390,750,805,52,'#18b7a5');
- roundRect(ctx,247,412,706,761,38,'#ffffff');
-
- const holder=document.createElement('div');
- holder.style.position='fixed';holder.style.left='-9999px';
- document.body.appendChild(holder);
- new QRCode(holder,{text:url,width:590,height:590,colorDark:'#101d2e',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
- await new Promise(r=>setTimeout(r,300));
- const qr=holder.querySelector('canvas')||holder.querySelector('img');
- if(!qr){holder.remove();throw new Error('تعذر إنشاء QR. تأكد من اتصال الإنترنت.');}
- if(qr.tagName==='CANVAS')ctx.drawImage(qr,305,450,590,590);
- else{
-  if(!qr.complete)await new Promise((res,rej)=>{qr.onload=res;qr.onerror=rej;});
-  ctx.drawImage(qr,305,450,590,590);
- }
- holder.remove();
-
- ctx.fillStyle='#142235';ctx.font='bold 34px Arial';ctx.direction='ltr';
- ctx.fillText('SCAN • CONTACT • SAFE',600,1118);
-
- // Clear moderation promise, shown as small clean chips.
- const chips=[
-  {x:210,t:'لا للسبام'},
-  {x:470,t:'لا للإساءة'},
-  {x:730,t:'لا للمعاكسات'},
-  {x:990,t:'احترام الخصوصية'}
- ];
- chips.forEach(ch=>{
-  roundRect(ctx,ch.x-105,1230,210,68,25,'#e3f8f4');
-  ctx.fillStyle='#087f76';ctx.font='bold 25px Tahoma';ctx.direction='rtl';
-  ctx.fillText(ch.t,ch.x,1274);
- });
-
- ctx.fillStyle='#ffffff';ctx.font='bold 112px Arial';ctx.direction='ltr';
- ctx.fillText('SafeCar',600,1450);
- ctx.fillStyle='#55e0cf';ctx.font='bold 29px Arial';
- ctx.fillText('SMART VEHICLE CONTACT',600,1510);
-}
-$('downloadBtn').onclick=()=>{const a=document.createElement('a');a.download='SafeCar-QR-Sticker.png';a.href=$('stickerCanvas').toDataURL('image/png');a.click();};
-$('copyLinkBtn').onclick=async()=>{try{await navigator.clipboard.writeText(lastLink);alert('تم نسخ الرابط');}catch(e){prompt('انسخ رابط QR:',lastLink);}};
-$('refreshBtn').onclick=loadCustomers;
-async function loadCustomers(){
- $('refreshBtn').disabled=true;try{const d=await api({action:'admin_list'},true),list=Array.isArray(d.customers)?d.customers:[];if(!list.length){$('customers').innerHTML='<p class="sub">لا يوجد عملاء حتى الآن.</p>';return;}
- let h='<div class="tablewrap"><table><thead><tr><th>العميل</th><th>السيارة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>';
- for(const c of list){const on=c.active===true;h+='<tr><td>'+escapeHtml(c.customer_name||'—')+'</td><td>'+escapeHtml(c.vehicle_label||'—')+'</td><td><span class="pill '+(on?'on':'off')+'">'+(on?'نشط':'متوقف')+'</span></td><td>'+(on?'<button class="danger deactivateBtn" data-id="'+escapeHtml(c.id)+'">إيقاف السيارة</button>':'<button class="activate activateBtn" data-id="'+escapeHtml(c.id)+'">إعادة التفعيل</button>')+'</td></tr>';}
- h+='</tbody></table></div>';$('customers').innerHTML=h;
- document.querySelectorAll('.deactivateBtn').forEach(b=>b.onclick=()=>changeStatus(b.dataset.id,false,b));
- document.querySelectorAll('.activateBtn').forEach(b=>b.onclick=()=>changeStatus(b.dataset.id,true,b));
- }catch(e){$('customers').innerHTML='<p class="msg err">'+escapeHtml(e.message)+'</p>';}finally{$('refreshBtn').disabled=false;}
-}
-async function changeStatus(id,enable,btn){
- const question=enable?'هل تريد إعادة تفعيل هذه السيارة؟ سيتمكن الزوار من إرسال البلاغات مرة أخرى.':'هل تريد إيقاف هذه السيارة؟';if(!confirm(question))return;btn.disabled=true;
- try{await api({action:enable?'admin_activate':'admin_deactivate',id},true);alert(enable?'تمت إعادة تفعيل السيارة بنجاح.':'تم إيقاف السيارة بنجاح.');await loadCustomers();}
- catch(e){alert((enable?'فشلت إعادة التفعيل: ':'فشل الإيقاف: ')+e.message);btn.disabled=false;}
-}
-const params=new URLSearchParams(location.search),token=params.get('t');
-if(token){$('admin').classList.add('hidden');$('visitor').classList.remove('hidden');$('alertForm').onsubmit=async e=>{e.preventDefault();const issue=document.querySelector('input[name="issue"]:checked')?.value;if(!issue)return;const b=$('alertForm').querySelector('button[type="submit"]');b.disabled=true;b.textContent='جارٍ إرسال التنبيه...';try{const d=await api({action:'public_alert',token,issue,details:$('details').value.trim()});showMsg($('visitorMsg'),d.message||'تم إرسال التنبيه.',true);$('alertForm').reset();b.textContent='تم الإرسال';}catch(err){showMsg($('visitorMsg'),err.message);b.disabled=false;b.textContent='إرسال التنبيه';}};}
+'use strict';
+const FUNCTION_URL='https://rlckioiawhrbzjmvxjsb.supabase.co/functions/v1/bright-service';
+const $=id=>document.getElementById(id),params=new URLSearchParams(location.search),token=params.get('t')||'',demo=params.get('demo')||'';
+const ISSUES=[['lights','الأنوار متروكة','💡','تنبيه بسيط يمنع نفاد البطارية'],['blocked','السيارة تعيق المرور','🚗','ساعد صاحبها يفتح الطريق'],['tire','مشكلة في إطار السيارة','◉','الإطار يحتاج مراجعة'],['glass','زجاج أو باب مفتوح','▱','نبّه صاحبها علشان يطمن'],['accident','حادث أو حالة طوارئ','⚠','تنبيه عاجل للمالك وشخص الطوارئ'],['fire','حريق أو خطر','♨','اتصل بالمطافي فورًا لو فيه حريق']];
+let adminPassword='',cars=[],stream=null,photo='',challenge='',lastLink='',busy=false,initialized=false,challengeTime=0;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function msg(id,text,kind='err'){const el=$(id);el.className='msg '+kind;el.textContent=text;}
+function digits(s){return String(s).replace(/[٠-٩]/g,c=>String(c.charCodeAt(0)-1632)).replace(/[۰-۹]/g,c=>String(c.charCodeAt(0)-1776));}
+function localPhone(s){let p=digits(s).replace(/[^0-9]/g,'');if(p.startsWith('0020'))p=p.slice(4);else if(p.startsWith('20'))p=p.slice(2);if(p.length===10&&p.startsWith('1'))p='0'+p;return p;}
+function intlPhone(s){return '20'+localPhone(s).slice(1);}
+async function api(body,admin=false){if(demo)throw new Error('دي معاينة فقط؛ مفيش إرسال أو حفظ بيانات.');const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);try{const r=await fetch(FUNCTION_URL,{method:'POST',headers:{'Content-Type':'application/json',...(admin?{'x-admin-password':adminPassword}:{})},body:JSON.stringify(body),signal:controller.signal});const d=await r.json().catch(()=>({error:'الخادم رجّع استجابة غير مفهومة.'}));if(!r.ok)throw new Error(d.error||'تعذر تنفيذ الطلب.');return d;}catch(e){if(e.name==='AbortError')throw new Error('الاتصال اتأخر. ممكن البلاغ يكون اتسجل؛ تجنّب إعادة الإرسال فورًا.');throw e;}finally{clearTimeout(timer);}}
+function stopCamera(){if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;$('cameraVideo').srcObject=null;$('cameraVideo').hidden=true;$('capturePhoto').classList.add('hidden');}
+async function camera(){if(!navigator.mediaDevices?.getUserMedia){msg('cameraMsg','الكاميرا غير متاحة هنا. افتح الصفحة في Chrome أو Safari عبر HTTPS.');return;}try{stopCamera();stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:960}}});$('cameraVideo').srcObject=stream;$('cameraVideo').hidden=false;await $('cameraVideo').play();$('cameraEmpty').hidden=true;$('photoPreview').hidden=true;$('capturePhoto').classList.remove('hidden');$('startCamera').classList.add('hidden');$('retakePhoto').classList.add('hidden');$('cameraMsg').textContent='';photo='';}catch(e){stopCamera();msg('cameraMsg',e.name==='NotAllowedError'?'اسمح للصفحة باستخدام الكاميرا من إعدادات المتصفح، ثم حاول تاني.':'تعذر فتح الكاميرا. اقفل أي تطبيق بيستخدمها وجرب تاني.');$('startCamera').classList.remove('hidden');}}
+$('startCamera').onclick=camera;$('retakePhoto').onclick=camera;
+$('capturePhoto').onclick=()=>{const v=$('cameraVideo');if(!v.videoWidth){msg('cameraMsg','استنى الصورة تظهر الأول.');return;}const c=document.createElement('canvas'),scale=Math.min(1,1280/v.videoWidth);c.width=Math.round(v.videoWidth*scale);c.height=Math.round(v.videoHeight*scale);c.getContext('2d').drawImage(v,0,0,c.width,c.height);photo=c.toDataURL('image/jpeg',.72);if(photo.length>1400000){photo='';msg('cameraMsg','الصورة كبيرة. جرّب التصوير تاني.');return;}$('photoPreview').src=photo;$('photoPreview').hidden=false;stopCamera();$('retakePhoto').classList.remove('hidden');};
+window.addEventListener('pagehide',stopCamera);document.addEventListener('visibilitychange',()=>{if(document.hidden){stopCamera();if(!photo)$('startCamera').classList.remove('hidden');}});
+$('issueOptions').innerHTML=ISSUES.map(([id,title,icon,help])=>'<label class="option '+(['accident','fire'].includes(id)?'urgent':'')+'"><input type="radio" name="issue" value="'+id+'" required><i aria-hidden="true">'+icon+'</i><span>'+title+'<small>'+help+'</small></span></label>').join('');
+$('issueOptions').onchange=()=>{const urgent=['accident','fire'].includes(document.querySelector('[name=issue]:checked')?.value);$('emergencyPhotoNote').classList.toggle('hidden',!urgent);$('photoHint').textContent=urgent?'سلامتك أولًا. صورة لو متاحة بأمان؛ مش شرط لإرسال بلاغ الطوارئ.':'صورة بالكاميرا تساعدنا نراجع البلاغ. ابعد عن تصوير الوجوه والبيانات الشخصية.';};
+async function initPublic(){initialized=false;$('sendBtn').disabled=true;try{const d=demo?{challenge:'demo',version:2}:await api({action:'public_init',token});if(d.version!==2)throw new Error('الخدمة تحت التحديث. حاول مرة تانية بعد قليل.');challenge=d.challenge;challengeTime=Date.now();initialized=true;$('sendBtn').disabled=false;$('sendBtn').textContent='إرسال التنبيه بأمان ←';}catch(e){msg('visitorMsg',e.message);$('sendBtn').textContent='الكود غير متاح حاليًا';}}
+$('alertForm').onsubmit=async e=>{e.preventDefault();if(busy||!initialized)return;const issue=document.querySelector('[name=issue]:checked')?.value;if(!issue)return;const urgent=['accident','fire'].includes(issue);if(!photo&&!urgent){msg('visitorMsg','التقط صورة للمشكلة بالكاميرا قبل إرسال البلاغ.');return;}if(demo){msg('visitorMsg','دي معاينة للتصميم فقط. لم يتم إرسال أي رسالة.','warn');return;}busy=true;$('sendBtn').disabled=true;$('sendBtn').textContent='جارٍ تسجيل البلاغ وإرسال التنبيه…';try{if(Date.now()-challengeTime>240000){await initPublic();if(!initialized)return;}$('sendBtn').disabled=true;const d=await api({action:'public_alert',token,challenge,issue,context:$('context').value,photo,consent:$('reportConsent').checked});stopCamera();photo='';$('reportCard').classList.add('hidden');$('successCard').classList.remove('hidden');$('successTitle').textContent=d.notification==='accepted'?'تم تسجيل البلاغ وقبول إرسال التنبيه':d.notification==='partial'?'اتسجل البلاغ وقُبل إرسال بعض التنبيهات':'اتسجل البلاغ، لكن التنبيه لم يتأكد';$('successText').textContent=d.message;$('reportRef').textContent='رقم البلاغ: '+d.report_id;window.scrollTo({top:0,behavior:'smooth'});}catch(err){msg('visitorMsg',err.message);if(/جلسة|انتهت|مستخدم/.test(err.message))await initPublic();}finally{busy=false;$('sendBtn').disabled=!initialized;$('sendBtn').textContent='إرسال التنبيه بأمان ←';}};
+$('anotherReport').onclick=()=>{location.reload();};
+for(const id of ['ownerPhone','emergencyPhone']){$(id).addEventListener('input',()=>{$(id).value=localPhone($(id).value).slice(0,11);});$(id).addEventListener('paste',e=>{const p=localPhone(e.clipboardData.getData('text'));e.preventDefault();if(p.length>11){msg('createMsg','الرقم الملصوق أطول من ١١ رقم محلي. راجعه بدل حذف أرقام منه.');return;}$(id).value=p;});}
+function setDashboard(){ $('login').classList.add('hidden');$('dashboard').classList.remove('hidden');$('heroTitle').innerHTML='كل عربية. كود خاص.<br><em>وخصوصية محفوظة.</em>';$('heroText').textContent='إدارة السيارات والبلاغات والاستيكرات من مكان واحد.';drawSticker('',true).catch(()=>{});}
+$('loginForm').onsubmit=async e=>{e.preventDefault();adminPassword=$('adminPass').value;$('loginBtn').disabled=true;try{const d=await api({action:'admin_list'},true);cars=d.customers||[];$('adminPass').value='';setDashboard();renderCars();await loadReports();}catch(err){adminPassword='';msg('loginMsg',err.message);}finally{$('loginBtn').disabled=false;}};
+$('logoutBtn').onclick=()=>{adminPassword='';cars=[];$('customers').replaceChildren();$('reports').replaceChildren();$('photoDialog').close();$('adminPhoto').removeAttribute('src');lastLink='';$('createForm').reset();$('downloadBtn').disabled=true;$('copyLinkBtn').disabled=true;$('dashboard').classList.add('hidden');$('login').classList.remove('hidden');};
+async function loadCars(){try{const d=await api({action:'admin_list'},true);cars=d.customers||[];renderCars();}catch(e){msg('createMsg',e.message);}}
+function renderCars(){const q=$('searchCars').value.trim().toLowerCase(),list=cars.filter(c=>[c.customer_name,c.vehicle_label,c.owner_phone,c.emergency_phone].join(' ').toLowerCase().includes(q));$('totalCount').textContent=cars.length;$('activeCount').textContent=cars.filter(c=>c.active).length;$('customers').innerHTML=list.length?'<table><thead><tr><th>المالك</th><th>اللوحة</th><th>موبايل المالك</th><th>رقم الطوارئ</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>'+list.map(c=>'<tr><td>'+esc(c.customer_name||'غير مسجل')+'</td><td>'+esc(c.vehicle_label||'غير مسجلة')+'</td><td dir="ltr">+'+esc(c.owner_phone?.replace(/^\+/,''))+'</td><td dir="ltr">+'+esc(c.emergency_phone?.replace(/^\+/,''))+'</td><td><span class="status '+(!c.active?'off':'')+'">'+(c.active?'نشط':'متوقف')+'</span></td><td><button class="btn mini '+(c.active?'danger':'soft')+'" data-car="'+esc(c.id)+'" data-active="'+String(c.active)+'">'+(c.active?'إيقاف':'تفعيل')+'</button></td></tr>').join('')+'</tbody></table>':'<p class="sub">مفيش سيارات مطابقة للبحث.</p>';}
+$('searchCars').oninput=renderCars;$('refreshBtn').onclick=loadCars;
+$('customers').onclick=async e=>{const b=e.target.closest('[data-car]');if(!b)return;const active=b.dataset.active==='true';if(!confirm(active?'إيقاف استقبال البلاغات لهذه السيارة؟':'إعادة تفعيل استقبال البلاغات؟'))return;b.disabled=true;try{await api({action:active?'admin_deactivate':'admin_activate',id:b.dataset.car},true);await loadCars();}catch(err){msg('createMsg',err.message);b.disabled=false;}};
+$('createForm').onsubmit=async e=>{e.preventDefault();if(!/^01[0125]\d{8}$/.test($('ownerPhone').value)||!/^01[0125]\d{8}$/.test($('emergencyPhone').value)){msg('createMsg','راجع أرقام الموبايل: المطلوب ١١ رقم مصري صحيح.');return;}if($('customerName').value.trim().split(/\s+/).length<2){msg('createMsg','اكتب اسم صاحب السيارة بالكامل، اسمين على الأقل.');return;}$('createBtn').disabled=true;try{const d=await api({action:'admin_create',customer_name:$('customerName').value.trim(),vehicle_label:$('vehicleLabel').value.trim(),owner_phone:intlPhone($('ownerPhone').value),emergency_phone:intlPhone($('emergencyPhone').value),consent:$('ownerConsent').checked},true);lastLink=location.origin+location.pathname+'?t='+encodeURIComponent(d.token);$('copyLinkBtn').disabled=false;try{await drawSticker(lastLink,false);$('downloadBtn').disabled=false;}catch(err){msg('stickerMsg','السيارة اتسجلت. '+err.message+' احتفظ بالرابط باستخدام زر النسخ.');}$('stickerHelp').textContent='استيكر خاص بالعربية '+$('vehicleLabel').value.trim()+' — اختبر QR بالموبايل قبل الطباعة.';msg('createMsg','اتسجلت السيارة واتعمل رابطها الخاص.','ok');await loadCars();}catch(err){msg('createMsg',err.message);}finally{$('createBtn').disabled=false;}};
+const labelStatus={accepted:'قُبل للإرسال',sent:'أُرسل',delivered:'وصل',read:'تمت قراءته',failed:'فشل',unknown:'النتيجة غير مؤكدة',pending:'قيد الإرسال'};
+async function loadReports(){try{const d=await api({action:'admin_reports'},true);$('reports').innerHTML=(d.reports||[]).map(r=>'<article class="report-item"><h3>'+esc(r.issue)+' · '+esc(r.vehicle_label||'—')+'</h3><small>'+esc(r.customer_name||'')+' · '+esc(new Date(r.created_at).toLocaleString('ar-EG'))+'</small><p class="sub">'+esc(r.context||'بدون تفاصيل إضافية')+'</p><p class="sub">'+(r.deliveries||[]).map(x=>esc(x.recipient_kind==='owner'?'المالك':'شخص الطوارئ')+': '+esc(labelStatus[x.status]||'غير معروف')).join(' | ')+'</p>'+(r.has_photo?'<button class="btn soft mini" data-photo="'+esc(r.id)+'">عرض الصورة للمراجعة</button>':'<span class="muted">بلاغ طوارئ بدون صورة</span>')+'</article>').join('')||'<p class="sub">لسه مفيش بلاغات في النظام المحدّث.</p>';}catch(e){$('reports').textContent=e.message;}}
+$('refreshReports').onclick=loadReports;$('reports').onclick=async e=>{const b=e.target.closest('[data-photo]');if(!b)return;b.disabled=true;try{const d=await api({action:'admin_photo',id:b.dataset.photo},true);$('adminPhoto').src=d.url;$('photoDialog').showModal();}catch(err){msg('createMsg',err.message);}finally{b.disabled=false;}};$('closePhoto').onclick=()=>{$('photoDialog').close();$('adminPhoto').removeAttribute('src');};
+function rounded(ctx,x,y,w,h,r,fill){ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();}
+function logoMark(ctx,x,y,size){ctx.save();ctx.translate(x,y);ctx.scale(size/100,size/100);ctx.fillStyle='#c7f76f';ctx.fill(new Path2D('M50 5 90 21v32c0 25-20 44-40 52C30 97 10 78 10 53V21Z'));ctx.strokeStyle='#102726';ctx.lineWidth=5;ctx.lineJoin='round';ctx.stroke(new Path2D('M27 55 34 36H65L74 55V76H66V67H35V76H27ZM28 55H73M39 44H57'));ctx.fillStyle='#102726';for(const x2 of [38,64]){ctx.beginPath();ctx.arc(x2,61,2.5,0,Math.PI*2);ctx.fill();}ctx.restore();}
+async function drawSticker(url,preview=false){const c=$('stickerCanvas'),ctx=c.getContext('2d');ctx.clearRect(0,0,1200,1600);ctx.fillStyle='#102726';ctx.fillRect(0,0,1200,1600);ctx.strokeStyle='#2e4940';ctx.lineWidth=2;ctx.strokeRect(36,36,1128,1528);logoMark(ctx,135,88,115);ctx.direction='ltr';ctx.textAlign='left';ctx.fillStyle='white';ctx.font='bold 100px Arial';ctx.fillText('Safe',290,190);ctx.fillStyle='#c7f76f';ctx.fillText('Car',500,190);ctx.fillStyle='#c7f76f';ctx.font='bold 25px Arial';ctx.fillText('SCAN. CARE. CONNECT.',293,235);ctx.textAlign='center';ctx.direction='rtl';ctx.fillStyle='#fff';ctx.font='bold 62px Tahoma';ctx.fillText('عربيتي محتاجة مساعدة؟',600,368);ctx.fillStyle='#c7f76f';ctx.font='bold 85px Tahoma';ctx.fillText('اسكان… ونبّهني.',600,482);rounded(ctx,215,550,770,770,35,'#fff');if(url){if(typeof QRCode==='undefined')throw new Error('مكتبة QR لم تتحمل. حدّث الصفحة وجرب تاني.');const holder=document.createElement('div');holder.style.cssText='position:fixed;left:-10000px;top:0';document.body.append(holder);try{new QRCode(holder,{text:url,width:650,height:650,colorDark:'#102726',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});const qr=holder.querySelector('canvas');if(!qr)throw new Error('تعذر إنشاء QR.');ctx.imageSmoothingEnabled=false;ctx.drawImage(qr,275,610,650,650);}finally{holder.remove();}}else{ctx.strokeStyle='#d3dfc7';ctx.lineWidth=18;for(const [x,y]of [[290,625],[740,625],[290,1075]]){ctx.strokeRect(x,y,160,160);ctx.fillStyle='#e3ebdc';ctx.fillRect(x+38,y+38,84,84);}ctx.fillStyle='#537045';ctx.font='bold 34px Tahoma';ctx.fillText('مكان كود العربية',600,952);ctx.fillStyle='#718268';ctx.font='27px Tahoma';ctx.fillText('معاينة تصميم — غير قابل للمسح',600,1005);}ctx.fillStyle='#fff';ctx.font='bold 35px Tahoma';ctx.fillText('وصّل لي التنبيه من غير ما تعرف رقمي',600,1405);ctx.fillStyle='#a1bca5';ctx.font='29px Tahoma';ctx.fillText('بلاغات محددة  ·  خصوصية محفوظة',600,1480);ctx.fillStyle='#c7f76f';ctx.fillRect(440,1545,320,8);}
+function download(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.click();}
+$('downloadBtn').onclick=()=>download($('stickerCanvas').toDataURL('image/png'),'SafeCar-sticker-1200x1600.png');$('copyLinkBtn').onclick=async()=>{if(!lastLink)return;try{await navigator.clipboard.writeText(lastLink);msg('stickerMsg','اتنسخ الرابط.','ok');}catch{msg('stickerMsg',lastLink,'warn');}};
+$('downloadLogo').onclick=()=>{const mark=document.getElementById('safecar-mark').innerHTML;const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140"><rect width="520" height="140" rx="26" fill="#102726"/><svg x="15" y="12" width="105" height="115" viewBox="0 0 100 110">'+mark+'</svg><text x="137" y="91" font-family="Arial,sans-serif" font-weight="700" font-size="70" fill="white">Safe<tspan fill="#c7f76f">Car</tspan></text></svg>';const u=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));download(u,'SafeCar-logo.svg');setTimeout(()=>URL.revokeObjectURL(u),2000);};
+if(demo){$('demoBanner').classList.remove('hidden');}if(token||demo==='visitor'){$('login').classList.add('hidden');$('visitor').classList.remove('hidden');initPublic();}else if(demo==='admin'){setDashboard();cars=[{id:'demo',customer_name:'أحمد محمد — بيانات تجريبية',vehicle_label:'س ي د ١٢٣٤',owner_phone:'201000000000',emergency_phone:'201100000000',active:true}];renderCars();$('reports').textContent='معاينة فقط — لا توجد بلاغات حقيقية.';}
 </script>
-</body>
-</html>
+</body></html>
